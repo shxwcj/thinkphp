@@ -111,21 +111,27 @@ function smsbao($smscode, $content, $phone)
         "50" => "内容含有敏感词",
         "51" => "发送频繁，请两分钟后重试",
     );
-    if (session('smstime')) {
-        if (time() < session('smstime') + 2 * 60) {//短信防御默认2分钟
+    if (session('smstime'))
+    {
+        if (time() < session('smstime') + 2 * 60)
+        {//短信防御默认2分钟
             $error_info = $statusStr['51'];
             return $error_info;
-        } else {
+        }
+        else
+        {
             session('smscode', $smscode);
             session('smstime', time());
             session('mobile', $phone);
         }
-    } else {
+    }
+    else
+    {
         session('smscode', $smscode);
         session('smstime', time());
         session('mobile', $phone);
     }
-    return 'ok';exit;
+    //return 'ok';exit;
 
     $sendurl = $smsapi . "sms?u=" . $user . "&p=" . $pass . "&m=" . $phone . "&c=" . urlencode($content);
     $result = file_get_contents($sendurl);

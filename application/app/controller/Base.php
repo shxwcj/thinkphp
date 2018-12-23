@@ -29,17 +29,6 @@ class Base extends Controller
         ksort($_GET);
     }
 
-   /**
-    * 生成token值
-    * @author wangchunjing
-   */
-
-   public function create_token()
-   {
-       $token = md5(mt_rand(111111,999999).time());
-       return $token;
-   }
-
     /**
      * 设置登录令牌（token）
      * @author wangchunjing
@@ -70,21 +59,50 @@ class Base extends Controller
     }
 
     /**
-     * 判断用户是否登录
+     * service端检测逻辑，保留接口
      * @author wangchunjing
      */
 
     public function is_login()
     {
-        $token = trim($_POST['token']);
-        $mid = Db::name('token')->where('token',$token)->value('mid');
-        if($mid >0)
-        {
-            return $mid;
+        $token = trim(input("request.token"));
+        $info = Db::name("tokens")->where("token",$token)->find();
+
+        if ($info['mid'] > 0) {
+            return $info['mid'];
+        } else {
+            return ajaxmsg('未登录', 0);
         }
-        else
-        {
-            return ajaxmsg('未授权登录',0);
+
+    }
+
+    /**
+     * 检测用户是否登录，保留接口
+     * @author wangchunjing
+     */
+
+    public function check_login()
+    {
+        $token = trim(input("request.token"));
+        if(Db::name("tokens")->where('token',$token)->count()){
+            return ajaxmsg('已登录',1);
+        }else{
+            return ajaxmsg('未登录',0);
+        }
+    }
+
+    /**
+     * 退出
+     * @author wangchunjing
+     */
+
+    public function logout()
+    {
+        $mid = $this->is_login();
+        if(Db::name("tokens")->where('mid',$mid)->delete()){
+            return ajaxmsg('退出成功',1);
+        }else{
+            return ajaxmsg('退出失败',0);
         }
     }
 
