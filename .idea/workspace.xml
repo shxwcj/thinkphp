@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b32dbce8-a539-4b50-aaf9-d6a26a6af186" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/application/app/controller/Member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/controller/Member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/common.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runtime/log/201812/23.log" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/201812/23.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,7 +24,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/app/controller/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
+            <state relative-caret-position="1411">
               <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="e#125#143#0#PHP" expanded="true" />
@@ -33,10 +34,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/common.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="113" column="29" lean-forward="true" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+              <folding>
+                <element signature="n#get_unit#0;n#!!top" />
+                <element signature="e#3170#3478#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+            <state relative-caret-position="-509">
+              <caret line="113" column="9" lean-forward="true" selection-start-line="113" selection-start-column="9" selection-end-line="113" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test3.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="227" column="31" selection-start-line="227" selection-start-column="27" selection-end-line="227" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -112,12 +135,12 @@
         <option value="$PROJECT_DIR$/application/app/controller/Index.php" />
         <option value="$PROJECT_DIR$/application/app/controller/Cart.php" />
         <option value="$PROJECT_DIR$/application/app/controller/member.php" />
-        <option value="$PROJECT_DIR$/application/common.php" />
         <option value="$PROJECT_DIR$/application/admin/controller/Cms.php" />
         <option value="$PROJECT_DIR$/application/wap/controller/Goods.php" />
         <option value="$PROJECT_DIR$/Apicoud+vue开发当当商城APP项目-课件.txt" />
         <option value="$PROJECT_DIR$/application/app/controller/Base.php" />
         <option value="$PROJECT_DIR$/application/app/controller/Member.php" />
+        <option value="$PROJECT_DIR$/application/common.php" />
       </list>
     </option>
   </component>
@@ -125,8 +148,8 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="451" />
-    <option name="y" value="21" />
+    <option name="x" value="454" />
+    <option name="y" value="43" />
     <option name="width" value="1438" />
     <option name="height" value="894" />
   </component>
@@ -171,6 +194,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
@@ -242,15 +266,15 @@
       <workItem from="1487678899016" duration="353000" />
       <workItem from="1545375907919" duration="3272000" />
       <workItem from="1545380840241" duration="2731000" />
-      <workItem from="1545551510003" duration="2309000" />
+      <workItem from="1545551510003" duration="4298000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67577000" />
+    <option name="totallyTimeSpent" value="69566000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="451" y="21" width="1438" height="894" extended-state="0" />
+    <frame x="673" y="83" width="1438" height="894" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12917271" />
@@ -500,13 +524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test3.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="4165" column="64" selection-start-line="4165" selection-start-column="64" selection-end-line="4166" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -523,23 +540,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/app/controller/Order.php" />
     <entry file="file://$PROJECT_DIR$/application/app.php" />
-    <entry file="file://$PROJECT_DIR$/application/common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="146" column="26" lean-forward="true" selection-start-line="146" selection-start-column="26" selection-end-line="146" selection-end-column="26" />
-          <folding>
-            <element signature="n#get_unit#0;n#!!top" />
-            <element signature="e#3170#3478#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../index.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-509">
+          <caret line="113" column="9" lean-forward="true" selection-start-line="113" selection-start-column="9" selection-end-line="113" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test3.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="227" column="31" selection-start-line="227" selection-start-column="27" selection-end-line="227" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/app/controller/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
+        <state relative-caret-position="1411">
           <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
           <folding>
             <element signature="e#125#143#0#PHP" expanded="true" />
@@ -547,10 +567,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
+    <entry file="file://$PROJECT_DIR$/application/common.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        <state relative-caret-position="446">
+          <caret line="113" column="29" lean-forward="true" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+          <folding>
+            <element signature="n#get_unit#0;n#!!top" />
+            <element signature="e#3170#3478#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>

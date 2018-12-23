@@ -95,7 +95,7 @@ function cnsubstr($str, $length, $start = 0, $charset = "utf-8", $suffix = true)
 //短信宝服务(发送短信)
 function smsbao($smscode, $content, $phone)
 {
-    $smsbao = array('user' => '', 'pass' => '');//短信宝服务;
+    $smsbao = array('user' => 'wunengbing', 'pass' => '3721382');//短信宝服务;
     $user = $smsbao['user'];//短信平台帐号
     $pass = md5($smsbao['pass']); //短信平台密码
     $smsapi = "http://www.smsbao.com/"; //短信网关

@@ -103,7 +103,44 @@ class Member extends Base
      */
     public function login()
     {
+        $deviceid = trim(input("request.deviceid"));
+        $mobile = trim(input("request.mobile"));
+        $password = trim(input("request.password"));
+        if(! $mobile)
+        {
+            return ajaxmsg('请输入手机和',0);
+        }
+        if (! $password)
+        {
+            return ajaxmsg('请输入密码',0);
+        }
 
+        $map['mobile'] = input("request.mobile");
+        $map['password'] = md5(trim(input("request.password")));
+        $member_info = Db::name('member')->where($map)->find();
+        if ($member_info)
+        {
+            $mid = $member_info['id'];
+            $token = $this->auto_login($mid, $mobile);
+            $tokens = Db::name('tokens')->where('mid',$mid)->find();
+            if ($tokens)
+            {
+                Db::name('tokens')->where('mid',$mid)->update(array('deviceid' => $deviceid, 'token' => $token));
+            }
+            else
+            {
+                Db::name('tokens')->insert(array('mid' => $mid, 'deviceid' => $deviceid, 'token' => $token));
+
+            }
+            $member_info['token'] = $token;
+            $member_info['area_agent_count'] = Db::name('area_agent')->where('mid',$mid)->where('status',1)->count('id');//代理区域数量
+            $member_info['area_deliveryman_id'] = Db::name('area_deliveryman')->where('mid',$mid)->where('status',1)->value('id');//业务员ID
+            return ajaxmsg('登录成功',1,$member_info);
+        }
+        else
+        {
+            return ajaxmsg('账号或密码错误',0);
+        }
     }
 
 
