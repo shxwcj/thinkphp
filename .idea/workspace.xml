@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b32dbce8-a539-4b50-aaf9-d6a26a6af186" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime/log/201812/23.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime/temp/a30c86250c3a1e75332e657c44452931.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime/temp/cdfb1bcbb90086e315c79094fc1524fe.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/app/controller/Base.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/controller/Base.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/app/controller/Member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/controller/Member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/log/201812/23.log" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/201812/23.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,10 +20,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/app/controller/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
+            <state relative-caret-position="151">
               <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="e#125#143#0#PHP" expanded="true" />
@@ -37,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+            <state relative-caret-position="216">
+              <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -119,19 +114,19 @@
         <option value="$PROJECT_DIR$/application/app/controller/member.php" />
         <option value="$PROJECT_DIR$/application/common.php" />
         <option value="$PROJECT_DIR$/application/admin/controller/Cms.php" />
-        <option value="$PROJECT_DIR$/application/app/controller/Member.php" />
         <option value="$PROJECT_DIR$/application/wap/controller/Goods.php" />
         <option value="$PROJECT_DIR$/Apicoud+vue开发当当商城APP项目-课件.txt" />
         <option value="$PROJECT_DIR$/application/app/controller/Base.php" />
+        <option value="$PROJECT_DIR$/application/app/controller/Member.php" />
       </list>
     </option>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="481" />
-    <option name="y" value="74" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="451" />
+    <option name="y" value="21" />
     <option name="width" value="1438" />
     <option name="height" value="894" />
   </component>
@@ -247,15 +242,15 @@
       <workItem from="1487678899016" duration="353000" />
       <workItem from="1545375907919" duration="3272000" />
       <workItem from="1545380840241" duration="2731000" />
-      <workItem from="1545551510003" duration="1576000" />
+      <workItem from="1545551510003" duration="2309000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66844000" />
+    <option name="totallyTimeSpent" value="67577000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="481" y="74" width="1438" height="894" extended-state="0" />
+    <frame x="451" y="21" width="1438" height="894" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12917271" />
@@ -542,20 +537,20 @@
     <entry file="file://$PROJECT_DIR$/../index.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="96" column="5" lean-forward="true" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/app/controller/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
+        <state relative-caret-position="151">
           <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
           <folding>
             <element signature="e#125#143#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/app/controller/Member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
         </state>
       </provider>
     </entry>

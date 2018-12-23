@@ -2121,3 +2121,1510 @@
 [ sql ] [ SQL ] SELECT COUNT(id) AS tp_count FROM `oc_member` WHERE  (  create_time > 1545494400 and create_time< 1545552353 ) LIMIT 1   [ RunTime:0.001000s ]
 
 ---------------------------------------------------------------
+[ 2018-12-23T16:28:00+08:00 ] 127.0.0.1 127.0.0.1 POST /index.php/app/Member/sendsms?mobile=13058185654
+[ log ] shop.com/index.php/app/Member/sendsms?mobile=13058185654 [运行时间：0.042003s][吞吐率：23.81req/s] [内存消耗：1,528.13kb] [文件加载：38]
+[ info ] [ LANG ] C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'app',
+    1 => 'Member',
+    2 => 'sendsms',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'host' => 'shop.com',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/7.4.0',
+  'postman-token' => 'f414999c-5081-4654-bc72-3f796a34350b',
+  'cache-control' => 'no-cache',
+  'content-length' => '0',
+)
+[ info ] [ PARAM ] array (
+  'mobile' => '13058185654',
+)
+[ info ] [ RUN ] Class [ <user> class app\app\controller\Member extends app\app\controller\Base ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 14-128
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [5] {
+    Property [ <default> protected $view ]
+    Property [ <default> protected $request ]
+    Property [ <default> protected $failException ]
+    Property [ <default> protected $batchValidate ]
+    Property [ <default> protected $beforeActionList ]
+  }
+
+  - Methods [21] {
+    /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+    Method [ <user> public method register ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+    }
+
+    /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+    Method [ <user> public method sendsms ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+    }
+
+    /**
+     * 用户登录
+     * @author wangchunjing
+     */
+    Method [ <user> public method login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 104 - 107
+    }
+
+    /**
+     * 解决跨域
+     * @author wangchunjing
+     * @return array|string
+     */
+    Method [ <user, inherits app\app\controller\Base, prototype think\Controller> protected method _initialize ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 22 - 30
+    }
+
+    /**
+    * 生成token值
+    * @author wangchunjing
+   */
+    Method [ <user, inherits app\app\controller\Base> public method create_token ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 37 - 41
+    }
+
+    /**
+     * 设置登录令牌（token）
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method auto_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 47 - 52
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $id ]
+        Parameter #1 [ <required> $mobile ]
+      }
+    }
+
+    /**
+     * 数据签名认证
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method data_auth_sign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 59 - 70
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $data ]
+      }
+    }
+
+    /**
+     * 判断用户是否登录
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method is_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 77 - 89
+    }
+
+    /**
+     * 架构函数
+     * @param Request $request Request对象
+     * @access public
+     */
+    Method [ <user, inherits think\Controller, ctor> public method __construct ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 44 - 63
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> think\Request or NULL $request = NULL ]
+      }
+    }
+
+    /**
+     * 前置操作
+     * @access protected
+     * @param string $method  前置操作方法名
+     * @param array  $options 调用参数 ['only'=>[...]] 或者['except'=>[...]]
+     */
+    Method [ <user, inherits think\Controller> protected method beforeAction ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 76 - 95
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $method ]
+        Parameter #1 [ <optional> $options = Array ]
+      }
+    }
+
+    /**
+     * 加载模板输出
+     * @access protected
+     * @param string $template 模板文件名
+     * @param array  $vars     模板输出变量
+     * @param array  $replace  模板替换
+     * @param array  $config   模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method fetch ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 106 - 109
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $template = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 渲染内容输出
+     * @access protected
+     * @param string $content 模板内容
+     * @param array  $vars    模板输出变量
+     * @param array  $replace 替换内容
+     * @param array  $config  模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method display ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 120 - 123
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $content = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 模板变量赋值
+     * @access protected
+     * @param mixed $name  要显示的模板变量
+     * @param mixed $value 变量的值
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method assign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 132 - 135
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $name ]
+        Parameter #1 [ <optional> $value = '' ]
+      }
+    }
+
+    /**
+     * 初始化模板引擎
+     * @access protected
+     * @param array|string $engine 引擎参数
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method engine ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 143 - 146
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $engine ]
+      }
+    }
+
+    /**
+     * 设置验证失败后是否抛出异常
+     * @access protected
+     * @param bool $fail 是否抛出异常
+     * @return $this
+     */
+    Method [ <user, inherits think\Controller> protected method validateFailException ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 154 - 158
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> $fail = true ]
+      }
+    }
+
+    /**
+     * 验证数据
+     * @access protected
+     * @param array        $data     数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array        $message  提示信息
+     * @param bool         $batch    是否批量验证
+     * @param mixed        $callback 回调方法（闭包）
+     * @return array|string|true
+     * @throws ValidateException
+     */
+    Method [ <user, inherits think\Controller> protected method validate ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 171 - 208
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <required> $validate ]
+        Parameter #2 [ <optional> $message = Array ]
+        Parameter #3 [ <optional> $batch = false ]
+        Parameter #4 [ <optional> $callback = NULL ]
+      }
+    }
+
+    /**
+     * 操作成功跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method success ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 37 - 64
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 操作错误跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method error ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 76 - 103
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 返回封装后的API数据到客户端
+     * @access protected
+     * @param mixed     $data 要返回的数据
+     * @param integer   $code 返回的code
+     * @param mixed     $msg 提示信息
+     * @param string    $type 返回数据格式
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method result ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 115 - 126
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <optional> $code = 0 ]
+        Parameter #2 [ <optional> $msg = '' ]
+        Parameter #3 [ <optional> $type = '' ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * URL重定向
+     * @access protected
+     * @param string         $url 跳转的URL表达式
+     * @param array|integer  $params 其它URL参数
+     * @param integer        $code http code
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method redirect ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 136 - 145
+
+      - Parameters [3] {
+        Parameter #0 [ <required> $url ]
+        Parameter #1 [ <optional> $params = Array ]
+        Parameter #2 [ <optional> $code = 302 ]
+      }
+    }
+
+    /**
+     * 获取当前的response 输出类型
+     * @access protected
+     * @return string
+     */
+    Method [ <user, inherits think\Controller> protected method getResponseType ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 152 - 156
+    }
+  }
+}
+
+[ info ] [ RUN ] /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+Method [ <user> public method sendsms ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+}
+
+[ info ] [ DB ] INIT mysql
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011000s ] mysql:dbname=test3;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_member` [ RunTime:0.004001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `oc_member` WHERE  `mobile` = '13058185654' LIMIT 1    [ RunTime:0.000000s ]
+
+---------------------------------------------------------------
+[ 2018-12-23T16:28:52+08:00 ] 127.0.0.1 127.0.0.1 GET /index.php/app/Member/register?mobile=13058185654&smscode=8141&password=123456&deviceid=0
+[ log ] shop.com/index.php/app/Member/register?mobile=13058185654&smscode=8141&password=123456&deviceid=0 [运行时间：0.037002s][吞吐率：27.03req/s] [内存消耗：1,537.98kb] [文件加载：38]
+[ info ] [ LANG ] C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'app',
+    1 => 'Member',
+    2 => 'register',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=5rvcf9qm9kb1mgc3qec14v3psk',
+  'host' => 'shop.com',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/7.4.0',
+  'postman-token' => '4f2ca092-b7a5-41ba-b970-dd1607e79293',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'mobile' => '13058185654',
+  'smscode' => '8141',
+  'password' => '123456',
+  'deviceid' => '0',
+)
+[ info ] [ RUN ] Class [ <user> class app\app\controller\Member extends app\app\controller\Base ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 14-128
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [5] {
+    Property [ <default> protected $view ]
+    Property [ <default> protected $request ]
+    Property [ <default> protected $failException ]
+    Property [ <default> protected $batchValidate ]
+    Property [ <default> protected $beforeActionList ]
+  }
+
+  - Methods [21] {
+    /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+    Method [ <user> public method register ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+    }
+
+    /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+    Method [ <user> public method sendsms ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+    }
+
+    /**
+     * 用户登录
+     * @author wangchunjing
+     */
+    Method [ <user> public method login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 104 - 107
+    }
+
+    /**
+     * 解决跨域
+     * @author wangchunjing
+     * @return array|string
+     */
+    Method [ <user, inherits app\app\controller\Base, prototype think\Controller> protected method _initialize ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 22 - 30
+    }
+
+    /**
+    * 生成token值
+    * @author wangchunjing
+   */
+    Method [ <user, inherits app\app\controller\Base> public method create_token ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 37 - 41
+    }
+
+    /**
+     * 设置登录令牌（token）
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method auto_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 47 - 52
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $id ]
+        Parameter #1 [ <required> $mobile ]
+      }
+    }
+
+    /**
+     * 数据签名认证
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method data_auth_sign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 59 - 70
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $data ]
+      }
+    }
+
+    /**
+     * 判断用户是否登录
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method is_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 77 - 89
+    }
+
+    /**
+     * 架构函数
+     * @param Request $request Request对象
+     * @access public
+     */
+    Method [ <user, inherits think\Controller, ctor> public method __construct ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 44 - 63
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> think\Request or NULL $request = NULL ]
+      }
+    }
+
+    /**
+     * 前置操作
+     * @access protected
+     * @param string $method  前置操作方法名
+     * @param array  $options 调用参数 ['only'=>[...]] 或者['except'=>[...]]
+     */
+    Method [ <user, inherits think\Controller> protected method beforeAction ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 76 - 95
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $method ]
+        Parameter #1 [ <optional> $options = Array ]
+      }
+    }
+
+    /**
+     * 加载模板输出
+     * @access protected
+     * @param string $template 模板文件名
+     * @param array  $vars     模板输出变量
+     * @param array  $replace  模板替换
+     * @param array  $config   模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method fetch ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 106 - 109
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $template = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 渲染内容输出
+     * @access protected
+     * @param string $content 模板内容
+     * @param array  $vars    模板输出变量
+     * @param array  $replace 替换内容
+     * @param array  $config  模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method display ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 120 - 123
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $content = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 模板变量赋值
+     * @access protected
+     * @param mixed $name  要显示的模板变量
+     * @param mixed $value 变量的值
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method assign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 132 - 135
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $name ]
+        Parameter #1 [ <optional> $value = '' ]
+      }
+    }
+
+    /**
+     * 初始化模板引擎
+     * @access protected
+     * @param array|string $engine 引擎参数
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method engine ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 143 - 146
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $engine ]
+      }
+    }
+
+    /**
+     * 设置验证失败后是否抛出异常
+     * @access protected
+     * @param bool $fail 是否抛出异常
+     * @return $this
+     */
+    Method [ <user, inherits think\Controller> protected method validateFailException ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 154 - 158
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> $fail = true ]
+      }
+    }
+
+    /**
+     * 验证数据
+     * @access protected
+     * @param array        $data     数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array        $message  提示信息
+     * @param bool         $batch    是否批量验证
+     * @param mixed        $callback 回调方法（闭包）
+     * @return array|string|true
+     * @throws ValidateException
+     */
+    Method [ <user, inherits think\Controller> protected method validate ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 171 - 208
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <required> $validate ]
+        Parameter #2 [ <optional> $message = Array ]
+        Parameter #3 [ <optional> $batch = false ]
+        Parameter #4 [ <optional> $callback = NULL ]
+      }
+    }
+
+    /**
+     * 操作成功跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method success ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 37 - 64
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 操作错误跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method error ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 76 - 103
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 返回封装后的API数据到客户端
+     * @access protected
+     * @param mixed     $data 要返回的数据
+     * @param integer   $code 返回的code
+     * @param mixed     $msg 提示信息
+     * @param string    $type 返回数据格式
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method result ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 115 - 126
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <optional> $code = 0 ]
+        Parameter #2 [ <optional> $msg = '' ]
+        Parameter #3 [ <optional> $type = '' ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * URL重定向
+     * @access protected
+     * @param string         $url 跳转的URL表达式
+     * @param array|integer  $params 其它URL参数
+     * @param integer        $code http code
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method redirect ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 136 - 145
+
+      - Parameters [3] {
+        Parameter #0 [ <required> $url ]
+        Parameter #1 [ <optional> $params = Array ]
+        Parameter #2 [ <optional> $code = 302 ]
+      }
+    }
+
+    /**
+     * 获取当前的response 输出类型
+     * @access protected
+     * @return string
+     */
+    Method [ <user, inherits think\Controller> protected method getResponseType ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 152 - 156
+    }
+  }
+}
+
+[ info ] [ RUN ] /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+Method [ <user> public method register ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+}
+
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=test3;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_member` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] INSERT INTO `oc_member` (`mobile` , `username` , `password` , `create_time` , `pid`) VALUES ('13058185654' , 'lewen-1545553732' , 'e10adc3949ba59abbe56e057f20f883e' , 1545553732 , 0)       [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_tokens` [ RunTime:0.004000s ]
+[ sql ] [ SQL ] INSERT INTO `oc_tokens` (`mid` , `deviceid` , `token`) VALUES (22 , '0' , '4106e231fbae9543c9967b3d662be7362c32dd90')     [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `oc_member` WHERE  (  id=22 ) LIMIT 1   [ RunTime:0.000000s ]
+
+---------------------------------------------------------------
+[ 2018-12-23T16:30:06+08:00 ] 127.0.0.1 127.0.0.1 POST /index.php/app/Member/sendsms?mobile=13058185654
+[ log ] shop.com/index.php/app/Member/sendsms?mobile=13058185654 [运行时间：0.039002s][吞吐率：25.64req/s] [内存消耗：1,528.57kb] [文件加载：38]
+[ info ] [ LANG ] C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'app',
+    1 => 'Member',
+    2 => 'sendsms',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=5rvcf9qm9kb1mgc3qec14v3psk',
+  'host' => 'shop.com',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/7.4.0',
+  'postman-token' => 'd6b20a43-9fde-4146-8ff6-406b305cddbd',
+  'cache-control' => 'no-cache',
+  'content-length' => '0',
+)
+[ info ] [ PARAM ] array (
+  'mobile' => '13058185654',
+)
+[ info ] [ RUN ] Class [ <user> class app\app\controller\Member extends app\app\controller\Base ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 14-128
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [5] {
+    Property [ <default> protected $view ]
+    Property [ <default> protected $request ]
+    Property [ <default> protected $failException ]
+    Property [ <default> protected $batchValidate ]
+    Property [ <default> protected $beforeActionList ]
+  }
+
+  - Methods [21] {
+    /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+    Method [ <user> public method register ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+    }
+
+    /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+    Method [ <user> public method sendsms ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+    }
+
+    /**
+     * 用户登录
+     * @author wangchunjing
+     */
+    Method [ <user> public method login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 104 - 107
+    }
+
+    /**
+     * 解决跨域
+     * @author wangchunjing
+     * @return array|string
+     */
+    Method [ <user, inherits app\app\controller\Base, prototype think\Controller> protected method _initialize ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 22 - 30
+    }
+
+    /**
+    * 生成token值
+    * @author wangchunjing
+   */
+    Method [ <user, inherits app\app\controller\Base> public method create_token ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 37 - 41
+    }
+
+    /**
+     * 设置登录令牌（token）
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method auto_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 47 - 52
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $id ]
+        Parameter #1 [ <required> $mobile ]
+      }
+    }
+
+    /**
+     * 数据签名认证
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method data_auth_sign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 59 - 70
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $data ]
+      }
+    }
+
+    /**
+     * 判断用户是否登录
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method is_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 77 - 89
+    }
+
+    /**
+     * 架构函数
+     * @param Request $request Request对象
+     * @access public
+     */
+    Method [ <user, inherits think\Controller, ctor> public method __construct ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 44 - 63
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> think\Request or NULL $request = NULL ]
+      }
+    }
+
+    /**
+     * 前置操作
+     * @access protected
+     * @param string $method  前置操作方法名
+     * @param array  $options 调用参数 ['only'=>[...]] 或者['except'=>[...]]
+     */
+    Method [ <user, inherits think\Controller> protected method beforeAction ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 76 - 95
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $method ]
+        Parameter #1 [ <optional> $options = Array ]
+      }
+    }
+
+    /**
+     * 加载模板输出
+     * @access protected
+     * @param string $template 模板文件名
+     * @param array  $vars     模板输出变量
+     * @param array  $replace  模板替换
+     * @param array  $config   模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method fetch ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 106 - 109
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $template = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 渲染内容输出
+     * @access protected
+     * @param string $content 模板内容
+     * @param array  $vars    模板输出变量
+     * @param array  $replace 替换内容
+     * @param array  $config  模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method display ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 120 - 123
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $content = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 模板变量赋值
+     * @access protected
+     * @param mixed $name  要显示的模板变量
+     * @param mixed $value 变量的值
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method assign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 132 - 135
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $name ]
+        Parameter #1 [ <optional> $value = '' ]
+      }
+    }
+
+    /**
+     * 初始化模板引擎
+     * @access protected
+     * @param array|string $engine 引擎参数
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method engine ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 143 - 146
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $engine ]
+      }
+    }
+
+    /**
+     * 设置验证失败后是否抛出异常
+     * @access protected
+     * @param bool $fail 是否抛出异常
+     * @return $this
+     */
+    Method [ <user, inherits think\Controller> protected method validateFailException ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 154 - 158
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> $fail = true ]
+      }
+    }
+
+    /**
+     * 验证数据
+     * @access protected
+     * @param array        $data     数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array        $message  提示信息
+     * @param bool         $batch    是否批量验证
+     * @param mixed        $callback 回调方法（闭包）
+     * @return array|string|true
+     * @throws ValidateException
+     */
+    Method [ <user, inherits think\Controller> protected method validate ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 171 - 208
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <required> $validate ]
+        Parameter #2 [ <optional> $message = Array ]
+        Parameter #3 [ <optional> $batch = false ]
+        Parameter #4 [ <optional> $callback = NULL ]
+      }
+    }
+
+    /**
+     * 操作成功跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method success ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 37 - 64
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 操作错误跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method error ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 76 - 103
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 返回封装后的API数据到客户端
+     * @access protected
+     * @param mixed     $data 要返回的数据
+     * @param integer   $code 返回的code
+     * @param mixed     $msg 提示信息
+     * @param string    $type 返回数据格式
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method result ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 115 - 126
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <optional> $code = 0 ]
+        Parameter #2 [ <optional> $msg = '' ]
+        Parameter #3 [ <optional> $type = '' ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * URL重定向
+     * @access protected
+     * @param string         $url 跳转的URL表达式
+     * @param array|integer  $params 其它URL参数
+     * @param integer        $code http code
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method redirect ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 136 - 145
+
+      - Parameters [3] {
+        Parameter #0 [ <required> $url ]
+        Parameter #1 [ <optional> $params = Array ]
+        Parameter #2 [ <optional> $code = 302 ]
+      }
+    }
+
+    /**
+     * 获取当前的response 输出类型
+     * @access protected
+     * @return string
+     */
+    Method [ <user, inherits think\Controller> protected method getResponseType ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 152 - 156
+    }
+  }
+}
+
+[ info ] [ RUN ] /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+Method [ <user> public method sendsms ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+}
+
+[ info ] [ DB ] INIT mysql
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011000s ] mysql:dbname=test3;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_member` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `oc_member` WHERE  `mobile` = '13058185654' LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------
+[ 2018-12-23T16:30:19+08:00 ] 127.0.0.1 127.0.0.1 GET /index.php/app/Member/register?mobile=13058185654&smscode=2878&password=123456&deviceid=0
+[ log ] shop.com/index.php/app/Member/register?mobile=13058185654&smscode=2878&password=123456&deviceid=0 [运行时间：0.032002s][吞吐率：31.25req/s] [内存消耗：1,537.98kb] [文件加载：38]
+[ info ] [ LANG ] C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'app',
+    1 => 'Member',
+    2 => 'register',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'accept-encoding' => 'gzip, deflate',
+  'cookie' => 'PHPSESSID=5rvcf9qm9kb1mgc3qec14v3psk',
+  'host' => 'shop.com',
+  'accept' => '*/*',
+  'user-agent' => 'PostmanRuntime/7.4.0',
+  'postman-token' => 'f2fe88d2-b581-4824-b5aa-a68c203849b4',
+  'cache-control' => 'no-cache',
+)
+[ info ] [ PARAM ] array (
+  'mobile' => '13058185654',
+  'smscode' => '2878',
+  'password' => '123456',
+  'deviceid' => '0',
+)
+[ info ] [ RUN ] Class [ <user> class app\app\controller\Member extends app\app\controller\Base ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 14-128
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [5] {
+    Property [ <default> protected $view ]
+    Property [ <default> protected $request ]
+    Property [ <default> protected $failException ]
+    Property [ <default> protected $batchValidate ]
+    Property [ <default> protected $beforeActionList ]
+  }
+
+  - Methods [21] {
+    /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+    Method [ <user> public method register ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+    }
+
+    /**
+     * 短信验证码接口
+     * @author wangchunjing
+     */
+    Method [ <user> public method sendsms ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 66 - 98
+    }
+
+    /**
+     * 用户登录
+     * @author wangchunjing
+     */
+    Method [ <user> public method login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 104 - 107
+    }
+
+    /**
+     * 解决跨域
+     * @author wangchunjing
+     * @return array|string
+     */
+    Method [ <user, inherits app\app\controller\Base, prototype think\Controller> protected method _initialize ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 22 - 30
+    }
+
+    /**
+    * 生成token值
+    * @author wangchunjing
+   */
+    Method [ <user, inherits app\app\controller\Base> public method create_token ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 37 - 41
+    }
+
+    /**
+     * 设置登录令牌（token）
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method auto_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 47 - 52
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $id ]
+        Parameter #1 [ <required> $mobile ]
+      }
+    }
+
+    /**
+     * 数据签名认证
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method data_auth_sign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 59 - 70
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $data ]
+      }
+    }
+
+    /**
+     * 判断用户是否登录
+     * @author wangchunjing
+     */
+    Method [ <user, inherits app\app\controller\Base> public method is_login ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Base.php 77 - 89
+    }
+
+    /**
+     * 架构函数
+     * @param Request $request Request对象
+     * @access public
+     */
+    Method [ <user, inherits think\Controller, ctor> public method __construct ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 44 - 63
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> think\Request or NULL $request = NULL ]
+      }
+    }
+
+    /**
+     * 前置操作
+     * @access protected
+     * @param string $method  前置操作方法名
+     * @param array  $options 调用参数 ['only'=>[...]] 或者['except'=>[...]]
+     */
+    Method [ <user, inherits think\Controller> protected method beforeAction ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 76 - 95
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $method ]
+        Parameter #1 [ <optional> $options = Array ]
+      }
+    }
+
+    /**
+     * 加载模板输出
+     * @access protected
+     * @param string $template 模板文件名
+     * @param array  $vars     模板输出变量
+     * @param array  $replace  模板替换
+     * @param array  $config   模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method fetch ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 106 - 109
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $template = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 渲染内容输出
+     * @access protected
+     * @param string $content 模板内容
+     * @param array  $vars    模板输出变量
+     * @param array  $replace 替换内容
+     * @param array  $config  模板参数
+     * @return mixed
+     */
+    Method [ <user, inherits think\Controller> protected method display ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 120 - 123
+
+      - Parameters [4] {
+        Parameter #0 [ <optional> $content = '' ]
+        Parameter #1 [ <optional> $vars = Array ]
+        Parameter #2 [ <optional> $replace = Array ]
+        Parameter #3 [ <optional> $config = Array ]
+      }
+    }
+
+    /**
+     * 模板变量赋值
+     * @access protected
+     * @param mixed $name  要显示的模板变量
+     * @param mixed $value 变量的值
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method assign ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 132 - 135
+
+      - Parameters [2] {
+        Parameter #0 [ <required> $name ]
+        Parameter #1 [ <optional> $value = '' ]
+      }
+    }
+
+    /**
+     * 初始化模板引擎
+     * @access protected
+     * @param array|string $engine 引擎参数
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method engine ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 143 - 146
+
+      - Parameters [1] {
+        Parameter #0 [ <required> $engine ]
+      }
+    }
+
+    /**
+     * 设置验证失败后是否抛出异常
+     * @access protected
+     * @param bool $fail 是否抛出异常
+     * @return $this
+     */
+    Method [ <user, inherits think\Controller> protected method validateFailException ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 154 - 158
+
+      - Parameters [1] {
+        Parameter #0 [ <optional> $fail = true ]
+      }
+    }
+
+    /**
+     * 验证数据
+     * @access protected
+     * @param array        $data     数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array        $message  提示信息
+     * @param bool         $batch    是否批量验证
+     * @param mixed        $callback 回调方法（闭包）
+     * @return array|string|true
+     * @throws ValidateException
+     */
+    Method [ <user, inherits think\Controller> protected method validate ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\think\Controller.php 171 - 208
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <required> $validate ]
+        Parameter #2 [ <optional> $message = Array ]
+        Parameter #3 [ <optional> $batch = false ]
+        Parameter #4 [ <optional> $callback = NULL ]
+      }
+    }
+
+    /**
+     * 操作成功跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method success ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 37 - 64
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 操作错误跳转的快捷方法
+     * @access protected
+     * @param mixed     $msg 提示信息
+     * @param string    $url 跳转的URL地址
+     * @param mixed     $data 返回的数据
+     * @param integer   $wait 跳转等待时间
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method error ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 76 - 103
+
+      - Parameters [5] {
+        Parameter #0 [ <optional> $msg = '' ]
+        Parameter #1 [ <optional> $url = NULL ]
+        Parameter #2 [ <optional> $data = '' ]
+        Parameter #3 [ <optional> $wait = 2 ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * 返回封装后的API数据到客户端
+     * @access protected
+     * @param mixed     $data 要返回的数据
+     * @param integer   $code 返回的code
+     * @param mixed     $msg 提示信息
+     * @param string    $type 返回数据格式
+     * @param array     $header 发送的Header信息
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method result ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 115 - 126
+
+      - Parameters [5] {
+        Parameter #0 [ <required> $data ]
+        Parameter #1 [ <optional> $code = 0 ]
+        Parameter #2 [ <optional> $msg = '' ]
+        Parameter #3 [ <optional> $type = '' ]
+        Parameter #4 [ <optional> array $header = Array ]
+      }
+    }
+
+    /**
+     * URL重定向
+     * @access protected
+     * @param string         $url 跳转的URL表达式
+     * @param array|integer  $params 其它URL参数
+     * @param integer        $code http code
+     * @return void
+     */
+    Method [ <user, inherits think\Controller> protected method redirect ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 136 - 145
+
+      - Parameters [3] {
+        Parameter #0 [ <required> $url ]
+        Parameter #1 [ <optional> $params = Array ]
+        Parameter #2 [ <optional> $code = 302 ]
+      }
+    }
+
+    /**
+     * 获取当前的response 输出类型
+     * @access protected
+     * @return string
+     */
+    Method [ <user, inherits think\Controller> protected method getResponseType ] {
+      @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\thinkphp\library\traits\controller\Jump.php 152 - 156
+    }
+  }
+}
+
+[ info ] [ RUN ] /**
+     * 用户注册
+     * @author wangchunjing
+     *
+     */
+Method [ <user> public method register ] {
+  @@ C:\phpStudy\PHPTutorial\WWW\thinkphp\application\app\controller\Member.php 21 - 59
+}
+
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:dbname=test3;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_member` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] INSERT INTO `oc_member` (`mobile` , `username` , `password` , `create_time` , `pid`) VALUES ('13058185654' , '游客13058185654' , 'e10adc3949ba59abbe56e057f20f883e' , 1545553819 , 0)       [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `oc_tokens` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] INSERT INTO `oc_tokens` (`mid` , `deviceid` , `token`) VALUES (23 , '0' , 'a8d95ac33ad04828c41466860b6084c2f6b9d901')     [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `oc_member` WHERE  (  id=23 ) LIMIT 1   [ RunTime:0.000000s ]
+
+---------------------------------------------------------------

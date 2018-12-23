@@ -31,7 +31,7 @@ class Member extends Base
         }
         $deviceid = input("request.deviceid",'wap');
         $data['mobile'] = input("request.mobile");
-        $data['username'] = 'lewen-' . time();
+        $data['username'] = '游客' .  $data['mobile'];
         $data['password'] = md5(trim(input("request.password")));
         $data['create_time'] = time();
         $data['pid'] = input("request.pid",0);
@@ -77,6 +77,7 @@ class Member extends Base
             {
                 // 生成4位随机数，左侧补0
                 $smscode = str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
+                var_dump($smscode);
                 $content = "[当当商城]您的验证码是{$smscode}，有效期是2分钟，请勿泄露他人";
                 $res = smsbao($smscode,$content,$mobile);
                 if($res == 'ok')
