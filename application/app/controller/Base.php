@@ -41,6 +41,35 @@ class Base extends Controller
    }
 
     /**
+     * 设置登录令牌（token）
+     * @author wangchunjing
+     */
+    public function auto_login($id,$mobile)
+    {
+        $auth = array('id' => $id, 'mobile' => $mobile, 'time' => time());
+        $user_auth_sign = $this->data_auth_sign($auth);
+        return $user_auth_sign;
+    }
+
+    /**
+     * 数据签名认证
+     * @author wangchunjing
+     */
+
+    public function data_auth_sign($data)
+    {
+        // 数据类型检测
+        if (!is_array($data))
+        {
+            $data = (array)$data;
+        }
+        ksort($data); //排序
+        $code = http_build_query($data); // url编码并生成query字符串
+        $sign = sha1($code);  // 生成签名
+        return $sign;
+    }
+
+    /**
      * 判断用户是否登录
      * @author wangchunjing
      */
