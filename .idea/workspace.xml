@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b32dbce8-a539-4b50-aaf9-d6a26a6af186" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/application/app/controller/Member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/app/controller/Member.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/common.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime/log/201812/23.log" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/201812/23.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/common.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="113" column="29" lean-forward="true" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+            <state relative-caret-position="481">
+              <caret line="114" column="48" selection-start-line="114" selection-start-column="48" selection-end-line="114" selection-end-column="48" />
               <folding>
                 <element signature="n#get_unit#0;n#!!top" />
                 <element signature="e#3170#3478#0#PHP" />
@@ -266,15 +264,15 @@
       <workItem from="1487678899016" duration="353000" />
       <workItem from="1545375907919" duration="3272000" />
       <workItem from="1545380840241" duration="2731000" />
-      <workItem from="1545551510003" duration="4298000" />
+      <workItem from="1545551510003" duration="4504000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69566000" />
+    <option name="totallyTimeSpent" value="69772000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="673" y="83" width="1438" height="894" extended-state="0" />
+    <frame x="454" y="43" width="1438" height="894" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12917271" />
@@ -569,8 +567,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/common.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="113" column="29" lean-forward="true" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+        <state relative-caret-position="481">
+          <caret line="114" column="48" selection-start-line="114" selection-start-column="48" selection-end-line="114" selection-end-column="48" />
           <folding>
             <element signature="n#get_unit#0;n#!!top" />
             <element signature="e#3170#3478#0#PHP" />
