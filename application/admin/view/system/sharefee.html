@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('system/admin_user')}">管理员管理</a></li>
+                <li><a href="{:url('system/admin_group')}">权限组管理</a></li>
+                <li class="active"><a href="{:url('system/sharefee')}">佣金设置<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">佣金提现设置</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="bs-form" v-cloak>
+                <div class="r-title">佣金提现设置</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('store_add')}" method="post">
+                    <div class="control-group">
+                        <label for="cate_name" class="control-label" style="width: 0;">单笔最低提现额度：</label>
+                        <div class="controls">
+                            <input type="text" id="cate_name" v-model="minwithdraw"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="store_code" class="control-label" style="width: 0;">单笔最高提现额度：</label>
+                        <div class="controls">
+                            <input type="text" id="store_code" v-model="maxwithdraw"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="store_code" class="control-label" style="width: 0;">提现金额收取比例：</label>
+                        <div class="controls">
+                            <input type="text"  v-model="withdrawrate"/>%&nbsp;&nbsp;&nbsp;(如为1，表示用户提现100块钱，实际到账99，1%的佣金为平台收取)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" style="width: 0;">每日提现限制：</label>
+                        <div class="controls">
+                            <label class="radio-pretty inline" v-bind:class="{ checked: rselect==1 }">
+                                <input type="radio"  value="1" name="rselect" v-model="rselect" v-on:click="limitwithdraw=0"><span>按次数，每日最多提现</span>
+                            </label>
+                            <input type="number" v-model="numwithdraw" placeholder="数值">次
+                            <hr>
+                            <label class="radio-pretty inline" v-bind:class="{ checked: rselect==2 }">
+                                <input type="radio"  value="2" name="rselect" v-model="rselect" v-on:click="numwithdraw=0"><span>按额度，每日最多提现</span>
+                            </label>
+                            <input type="number" v-model="limitwithdraw" placeholder="金额">元
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <a href="javascript:void(0);" class="sui-btn btn-primary" v-on:click="update()">提交</a>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    });
+    var vm = new Vue({
+        el: '.bs-form',
+        data: {
+            minwithdraw: "{$minwithdraw}",
+            maxwithdraw: "{$maxwithdraw}",
+            numwithdraw: "{$numwithdraw}",
+            limitwithdraw: "{$limitwithdraw}",
+            withdrawrate: "{$withdrawrate}",
+            rselect: "{$rselect}"
+        },
+        methods: {
+            update: function (index) {
+                var url = "{:url()}";
+                //提交数据参数
+                var parms = {
+                    minwithdraw: vm.minwithdraw,
+                    maxwithdraw: vm.maxwithdraw,
+                    numwithdraw: vm.numwithdraw,
+                    limitwithdraw: vm.limitwithdraw,
+                    withdrawrate: vm.withdrawrate
+                };
+                $.post(url, parms, function (a) {
+                    handleAjax(a);
+                });
+            }
+        }
+    });
+</script>

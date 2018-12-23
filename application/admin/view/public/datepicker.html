@@ -1,0 +1,31 @@
+<div data-toggle="datepicker" class="control-group input-daterange" id="jprodate">
+    <label class="control-label">[label]：</label>
+    <div class="controls">
+        <input type="text" class="input-medium input-date" name="[name]" value="[value]">
+    </div>
+</div>
+<script>
+    //获取当前日期
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+
+        return currentdate;
+    }
+
+    $('#jprodate input').datepicker({
+        size: "big",
+        todayHighlight: true,
+        startDate: getNowFormatDate()
+    });
+</script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('goods/index')}">商品列表</a></li>
+                <li><a href="{:url('goods/recommend_list')}">商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li class="active"><a href="{:url('goods/unit_list')}"><i class="sui-icon icon-tb-right pull-right mt3"></i>单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="bs-form">
+                <div class="r-title">添加单位</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('unit_add')}" method="post">
+                    <div class="control-group">
+                        <label for="cate_name" class="control-label">单位名称：</label>
+                        <div class="controls">
+                            <input type="text" id="cate_name" name="name" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button type="submit" class="sui-btn btn-primary">提交</button>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+        $(".checkall").change(function () {
+            if ($(this).prop("checked")) {
+                $("tbody input[type=checkbox]").prop("checked", true);
+            } else {
+                $("tbody input[type=checkbox]").prop("checked", false);
+            }
+        });
+    });
+</script>

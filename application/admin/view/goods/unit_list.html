@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('goods/index')}">商品列表</a></li>
+                <li><a href="{:url('goods/recommend_list')}">商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li class="active"><a href="{:url('goods/unit_list')}"><i class="sui-icon icon-tb-right pull-right mt3"></i>单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('goods/index')}">商品</a></li>
+                    <li class="active">单位管理</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <form class="queryForm sui-form form-inline" action="{:url('unit_list')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+                <input type="text" name="queryText" class="input-medium input-large" placeholder="单位名称" v-model="queryText">
+                <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                <div class=" pull-right"><a href="{:url('goods/unit_add')}" class="sui-btn btn-success">添加单位</a></div>
+            </form>
+            <table class="sui-table table-bordered table-hover" id="list-content">
+                <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" class="checkall"></th>
+                    <th>名称</th>
+                    <th>状态</th>
+                    <th width="20%" class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="checkbox" value="{$vo.id}">
+                        <input type="hidden" name="id" value="{$vo.id}">
+                    </td>
+                    <td>{$vo.name}</td>
+                    <td>
+                        {if condition="$vo.status eq 1"}
+
+                            <a href="javascript:void(0);" class="sui-btn btn-small btn-primary">启用</a>
+                        {else /}
+                            <a href="javascript:void(0);" class="sui-btn btn-small">禁用</a>
+                        {/if}
+                    </td>
+                    <td class="center">
+                        <a href="{:url('unit_edit')}?id={$vo.id}">修改</a>
+                        -
+                        <a href="javascript:void(0)" onclick="unit_delete({$vo.id})">删除</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div class="span4 pull-left">
+                <a href="javascript: void(0);" class="btn-link" onclick="unit_setstatus(1)">批量启用</a> -
+                <a href="javascript: void(0);" class="btn-link" onclick="unit_setstatus(0)">批量禁用</a>
+            </div>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            queryText: "{$queryText}",
+        },
+        methods: {
+            search: function() {
+                $("#page").val(0);
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+        $(".checkall").change(function () {
+            if ($(this).prop("checked")) {
+                $("tbody input[type=checkbox]").prop("checked", true);
+            } else {
+                $("tbody input[type=checkbox]").prop("checked", false);
+            }
+        });
+    });
+
+    function unit_delete(id) {
+        var url = "{:url('unit_delete')}";
+        //询问框
+        layer.confirm('是否删除？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(url, {id:id}, function (a) {
+                if(a.code == 0){
+                    layer.msg(a.msg, {icon: 2})
+                }else{
+                    handleAjax(a);
+                }
+            });
+        }, function(){
+            layer.close();
+        });
+
+    }
+    function unit_setstatus(status) {
+        var ids = Array();
+        $('input[name="checkbox"]:checked').each(function(){
+            ids.push($(this).val());
+        });
+        console.log(ids);
+        var url = "{:url('unit_setstatus')}";
+
+        //询问框
+        layer.confirm('是否操作？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(url, {ids:ids,status:status}, function (a) {
+                if(a.code == 0){
+                    layer.msg(a.msg, {icon: 2})
+                }else{
+                    handleAjax(a);
+                }
+            });
+        }, function(){
+            layer.close();
+        });
+
+    }
+</script>

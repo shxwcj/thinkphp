@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<style>
+    ul li {
+        list-style: none;
+    }
+
+    .bs-form {
+        top: 0;
+        padding-top: 10px;
+    }
+
+    .xian {
+        overflow: hidden;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .xian .pull-left {
+        width: 7%;
+        color: #28a3ef;
+        font-size: 14px;
+    }
+
+    .xian .pull-right {
+        float: left;
+        width: 73%;
+        border-top: 1px dashed #CCCCCC;
+        margin-top: 10px;
+    }
+
+    .huise {
+        color: #666666;
+    }
+
+    .guige {
+        background: #F2F2F2;
+        padding-bottom: 10px;
+    }
+
+    h2.normal {
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    .guige ul {
+        margin-bottom: 10px;
+    }
+
+    .guige ul li {
+        float: left;
+        margin-left: 20px;
+        background: #fff;
+    }
+
+    .guige ul li.item {
+        width: 80px;
+        line-height: 40px;
+        height: 40px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .guige ul li.itemMiddle {
+        width: 70%;
+        min-height: 30px;
+        border: 1px solid #ccc;
+        text-align: left;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .guige ul li.itemMiddle a {
+        margin: 2px 10px;
+    }
+
+    .guige ul li.itemMiddle a span {
+        float: right;
+        margin-left: 10px;
+    }
+
+    .guige ul li.delte {
+        line-height: 40px;
+        height: 40px;
+        background: none;
+        color: #28a3ef;
+    }
+
+    .guige .addItem {
+        padding-left: 30px;
+    }
+
+    .table-bordered img {
+        width: 70px;
+        height: 60px;
+    }
+
+    .table-bordered tr th, .table-bordered tr td {
+        text-align: center;
+    }
+
+    .table-bordered .inputWord {
+        width: 49%;
+        display: inline-block;
+        height: 18px;
+        padding: 2px 4px;
+        font-size: 12px;
+        line-height: 18px;
+        color: #555555;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border linear .2s, box-shadow linear .2s;
+        -moz-transition: border linear .2s, box-shadow linear .2s;
+        -o-transition: border linear .2s, box-shadow linear .2s;
+        transition: border linear .2s, box-shadow linear .2s;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .tab-content.tab-wraped {
+        border: none;
+        padding: 0;
+    }
+
+    .inputStyle {
+        width: 200px;
+        height: 30px;
+    }
+
+    .sui-form.form-horizontal .guigeInput {
+        width: 70px;
+        height: 32px;
+        border: none;
+    }
+
+    .sui-form.form-horizontal .shuxing {
+        width: 70px;
+        margin-top: 2px;
+    }
+
+    .sui-div.addCategory {
+
+    }
+
+    .sui-table th, .sui-table td {
+        padding: 6px 0px;
+    }
+</style>
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="{:url('goods/index')}">商品列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('goods/recommend_list')}">商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li><a href="{:url('goods/unit_list')}">单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('goods/index')}">商品</a></li>
+                    <li class="active">修改商品</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="bs-form" v-cloak>
+                <div class="tab-content tab-wraped">
+                    <!--基本信息 start-->
+                    <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('goods_edit')}" method="post">
+                        <div class="r-title">基本信息</div>
+                        <div class="control-group">
+                            <label for="cate_name" class="control-label">商品名称：</label>
+                            <div class="controls">
+                                <input type="text" id="cate_name" class="inputStyle" v-model="goods_info.goods_name" style="width: 300px;"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="cate_id" class="control-label">商品分类：</label>
+                            <div class="controls">
+                                <span class="sui-dropdown dropdown-bordered select">
+                                    <span class="dropdown-inner">
+                                        {if condition="$cate_id > 0"}
+                                            <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                <input id="unit_id" name="unit_id"  value="{$cate_id}" type="hidden" data-rules="required">
+                                                <i class="caret"></i>
+                                                <span>{$cate_name}</span>
+                                            </a>
+                                        {else /}
+                                            <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                <input id="cate_id" name="cate_id" type="hidden" data-rules="required">
+                                                <i class="caret"></i>
+                                                <span>请选择</span>
+                                            </a>
+                                        {/if}
+                                        <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
+                                            {volist name="plist" id="vo"}
+                                                 <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="javascript:void(0);" value="{$vo.id}"
+                                                       v-on:click="settingcate({$vo.id})">{$vo.cate_name}</a>
+                                                 </li>
+                                            {if condition="count($vo.children) gt 0"}
+                                            {volist name="vo.children" id="vo2"}
+                                             <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="javascript:void(0);"
+                                                   value="{$vo2.id}" v-on:click="settingcate({$vo2.id})">&nbsp;&nbsp;&nbsp;&nbsp;|--{$vo2.cate_name}</a>
+                                             </li>
+                                             {/volist}
+                                            {/if}
+                                            {/volist}
+                                        </ul>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="unit_id" class="control-label">计量单位：</label>
+                            <div class="controls">
+                                <span class="sui-dropdown dropdown-bordered select">
+                                    <span class="dropdown-inner">
+                                        {if condition="$unit_id > 0"}
+                                            <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                <input id="unit_id" name="unit_id"  value="{$unit_id}" type="hidden" data-rules="required">
+                                                <i class="caret"></i>
+                                                <span>{$unit_name}</span>
+                                            </a>
+                                        {else /}
+                                            <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                                <input id="unit_id" name="unit_id"  type="hidden" data-rules="required">
+                                                <i class="caret"></i>
+                                                <span>请选择</span>
+                                            </a>
+                                        {/if}
+                                        <ul id="menu5" role="menu" aria-labelledby="drop5" class="sui-dropdown-menu">
+                                            {volist name="ulist" id="vo"}
+                                                 <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="javascript:void(0);" value="{$vo.id}"
+                                                       v-on:click="settingunit({$vo.id})">{$vo.name}</a>
+                                                 </li>
+                                            {/volist}
+                                        </ul>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="r-title">商品标签</div>
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new">
+                                <input type="checkbox" v-model="goods_info.is_new" class="ml15"><span class="ml10">新品</span>
+                            </label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new">
+                                <input type="checkbox" v-model="goods_info.is_hot" class="ml15"><span class="ml10">热销</span>
+                            </label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new">
+                                <input type="checkbox" v-model="goods_info.is_rec" class="ml15"><span class="ml10">推荐</span>
+                            </label>
+                        </div>
+                        <div class="r-title">上下架设置</div>
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                                <input type="radio"  value="1" v-model="goods_info.putway"><span>上架</span>
+                                <input type="radio"  value="0" v-model="goods_info.putway"><span>下架</span>
+                            </div>
+                        </div>
+
+                        <div class="r-title">商品价格</div>
+
+                        价格设置（分销商及代理商将基于“（零售价-成本价）*佣金比例”获取分润佣金）
+                        <hr>
+                        <div class="sui-div xian" style="width: 60%;">
+                            <table class="sui-table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>零售价</th>
+                                    <th>成本价</th>
+                                    <th>上级分销佣金</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>￥<input type="number" v-model="goods_info.price"></td>
+                                    <td>￥<input type="number" v-model="goods_info.costprice"></td>
+                                    <td><input type="number" v-model="goods_info.fenxiao_rate">%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="r-title">商品详情</div>
+                        <h2 class="normal">商品图片：</h2>
+                        {include file="../application/admin/view/public/pictures.html" /}
+                        商品说明：注意：一旦修改，同名其他规格商品均被修改<br/><br/>
+                        <div class="control-group">
+                            {include file="../application/admin/view/public/editor.html" /}
+                        </div>
+
+                        <!--基本信息 end-->
+
+
+                        <!--添加商品多规格商品start-->
+                        <div class="sui-div addCategory" v-if="duoguige" style="width: 80%;">
+                            <h2 class="normal">添加各规格商品：</h2>
+                            <table class="sui-table table-bordered order-table table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="10%">商品编码</th>
+                                    <th width="10%" v-for="vo in standardlist">{{ vo.name }}</th>
+                                    <th width="10%">零售价(￥)</th>
+                                    <th width="10%">成本价(￥)</th>
+                                    <th width="10%">上级分销佣金</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>{{ goods.sku }}</td>
+                                    <td v-if="goods.standard_value1">{{ goods.standard_value1 }}</td>
+                                    <td v-if="goods.standard_value2">{{ goods.standard_value2 }}</td>
+                                    <td v-if="goods.standard_value3">{{ goods.standard_value3 }}</td>
+                                    <td>{{ goods.price }}</td>
+                                    <td>{{ goods.costprice }}</td>
+                                    <td>{{ goods.fenxiao_rate }}%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--添加商品多规格商品end-->
+
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="control-group">
+                                <label class="control-label"></label>
+                                <div class="controls">
+                                    <a href="javascript:void(0);" class="sui-btn btn-primary" onclick='goods_edit("{:url('goods/goods_edit')}")'>提交</a>
+                                    <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+    });
+    var vm = new Vue({
+        el: '.bs-form',
+        data: {
+            id: {$id},
+            info_id: {$info_id},
+            unit_id: {$unit_id},
+            cate_id: {$cate_id},
+            goods_info: {$goods_info},
+            goods: {$goods},
+            putway: 1,
+            standardlist: {$standardlist},
+            duoguige: {$duoguige}//多规格1：有多规格商品，0：不是多规格商品
+        },
+        methods: {
+            settingcate:function (id) {
+                vm.cate_id = id;
+            },
+            settingunit:function (id) {
+                vm.unit_id = id;
+            }
+        }
+    });
+
+    function goods_edit(url) {
+        var coverslist = [];
+        $(".info").next('input').each(function (index,el) {
+            coverslist.push($(".info").next('input').eq(index).val());
+        });
+        if(!vm.goods_info.goods_name){
+            layer.msg('商品名不能为空', {icon: 2});
+            return false;
+        }
+        if(coverslist.length == 0){
+            layer.msg('最少添加一张图片', {icon: 2});
+            return false;
+        }
+        vm.covers = coverslist;
+        if(vm.goods_info.is_new){
+            vm.goods_info.is_new = 1;
+        }else{
+            vm.goods_info.is_new = 0;
+        }
+        if(vm.goods_info.is_rec){
+            vm.goods_info.is_rec = 1;
+        }else{
+            vm.goods_info.is_rec = 0;
+        }
+        if(vm.goods_info.is_hot){
+            vm.goods_info.is_hot = 1;
+        }else{
+            vm.goods_info.is_hot = 0;
+        }
+        vm.goods_info.content = get_editor_content();
+        //提交数据参数
+        var parms = {
+            id: vm.id,
+            info_id: vm.info_id,
+            cate_id: vm.cate_id,
+            unit_id: vm.unit_id,
+            covers: JSON.stringify(vm.covers),
+            goods_info: JSON.stringify(vm.goods_info),
+        };
+        $.post(url, parms, function (a) {
+            handleAjax(a);
+        });
+    }
+</script>

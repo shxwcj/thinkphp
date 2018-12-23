@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="/admin/drp/index">分销商列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="/admin/drp/withdrawapply">提现申请</a></li>
+                <li><a href="/admin/drp/withdrawrecord">提现记录</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="/admin/index/index">首页</a></li>
+                    <li><a href="/admin/drp/index">分销商</a></li>
+                    <li class="active">分销商列表</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <form class="queryForm sui-form form-horizontal" action="{:url('index')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+                <div class="control-group">
+                    <span>筛选内容：</span>
+                    <input type="text" name="queryText" value="{$queryText}"
+                           class="input-medium input-large ml20" placeholder="请输入客户账号/手机号">
+                    <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                </div>
+            </form>
+
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>客户账号</th>
+                    <th>昵称</th>
+                    <th>消费订单数（单）</th>
+                    <th>累计消费</th>
+                    <th>上级联盟伙伴</th>
+                    <th>下级联盟伙伴数</th>
+                    <th>佣金余额</th>
+                    <th>注册时间</th>
+                    <th class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.mobile}</td>
+                    <td>{$vo.username}<span class="sui-text-warning ml10">分销商</span></td>
+
+                    <td>{$vo.id|get_order_sum}</td>
+                    <td>{$vo.id|get_total_price}</td>
+                    <td>{$vo.pid|get_pid_name}</td>
+                    <td>{$vo.id|get_children_sum}</td>
+                    <td>￥{$vo.id|get_fenxiao_sum}</td>
+                    <td>{$vo.create_time|date="Y-m-d H:m:s",###}</td>
+                    <td class="center">
+                        <a href="{:url('withdraw_order_list')}?id={$vo.id}" class="sui-btn btn-link">订单列表</a>-
+                        <a href="{:url('withdraw_fenxiao_list')}?id={$vo.id}" class="sui-btn btn-link">分佣列表</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            queryText: "{$queryText}",
+        },
+        methods: {
+            search: function() {
+                $("#page").val(0);
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menudrp").addClass("active");
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+    });
+</script>

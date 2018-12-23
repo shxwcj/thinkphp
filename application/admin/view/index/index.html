@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<style>
+    .u-header-box {
+        position: relative;
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .u-header-box p {
+        margin-bottom: 5px;
+    }
+
+    .u-header-box .name {
+        font-size: 18px;
+    }
+
+    .u-header-box .sui-text-warning {
+        font-size: 14px;
+    }
+
+    .u-header-box .time {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .u-total-box {
+        margin-bottom: 10px;
+    }
+
+    .u-total-box .total-ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .u-total-box .total-ul li {
+        width: 19%;
+        position: relative;
+        padding-bottom: 20px;
+        margin-right: 1%;
+        background: #efefef;
+        text-align: center;
+    }
+
+    .u-total-box .total-ul li .tit {
+        padding-top: 20px;
+        margin: 0px;
+    }
+
+    .u-total-box .total-ul li .price {
+        padding-top: 6px;
+        font-size: 16px;
+        color: #FF6600;
+        margin: 0px;
+    }
+
+    .u-total-box .total-ul li .new-tip {
+        padding-top: 10px;
+        border-top: 1px solid #ececec;
+        width: 85%;
+        margin: 15px auto 0px auto;
+    }
+
+    .u-total-box .total-ul li .new-tip .sum {
+        color: #FF6600;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .mr0 {
+        margin-right: 0px;
+    }
+
+    .sui-layout .content {
+        margin-left: 0px !important;
+    }
+
+    .ph-tit {
+        color: #FF6600;
+        font-size: 14px;
+        border-bottom: 1px solid #ececec;
+        font-weight: normal;
+    }
+</style>
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <div class="main-t" id="app">
+        <div class="content">
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="/admin/index/index">首页</a></li>
+                    <li class="active">工作台</li>
+                </ul>
+            </div>
+            <div class="u-total-box">
+                <ul class="total-ul clearfix">
+                    <li class="fl" style="background: rgba(216, 240, 251, 0.47);">
+                        <p class="tit">订单总计</p>
+                        <p class="price sui-text-warning">{$order_sum}</p>
+                        <p class="new-tip">今日新增 <a href="{:url('order/index')}" class="sum">{$order_sum2}>></a></p>
+                    </li>
+                    <li class="fl" style=" background: rgba(243, 241, 222, 0.21);">
+                        <p class="tit">在售商品</p>
+                        <p class="price sui-text-warning">{$goods_sum}</p>
+                        <p class="new-tip">今日新增 <a href="{:url('goods/index')}" class="sum">{$goods_sum2}>></a></p>
+                    </li>
+
+                    <li class="fl" style="background:rgba(73, 84, 230, 0.14);">
+                        <p class="tit">分销商</p>
+                        <p class="price sui-text-warning">{$member_sum}</p>
+                        <p class="new-tip">今日新增 <a href="{:url('drp/index')}" class="sum">{$member_sum2}>></a></p>
+                    </li>
+
+                </ul>
+            </div>
+            <!--
+            <table class="sui-table">
+                <tr>
+                    <td>
+                        <h3 class="ph-tit">商品销量Top10</h3>
+                        <table class="sui-table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>商品名称</th>
+                                <th>规格</th>
+                                <th>销量</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>D20161005-452011</td>
+                                <td>2016-10-05 14:07</td>
+                                <td>心花怒放 18411002140</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <h3 class="ph-tit">代理业绩Top10</h3>
+                        <table class="sui-table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>代理商</th>
+                                <th>销售额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>D20161005-452011</td>
+                                <td>2016-10-05 14:07</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <h3 class="ph-tit">分销佣金Top10</h3>
+                        <table class="sui-table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>分销商</th>
+                                <th>佣金</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>D20161005-452011</td>
+                                <td>2016-10-05 14:07</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menuworkbench").addClass("active");
+    });
+</script>

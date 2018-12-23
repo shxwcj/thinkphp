@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<style>
+    .xian {
+
+        overflow: hidden;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .xian .pull-left {
+        width: 11%;
+        color: #28a3ef;
+        font-size: 14px;
+    }
+
+    .xian .pull-right {
+        float: left;
+        width: 87%;
+        border-top: 1px dashed #CCCCCC;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('goods/index')}">商品列表</a></li>
+                <li class="active"><a href="{:url('goods/recommend_list')}"><i class="sui-icon icon-tb-right pull-right mt3"></i>商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li><a href="{:url('goods/unit_list')}">单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('goods/index')}">商品</a></li>
+                    <li class="active">商品推介</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="sui-div">
+                <p>说明：首页商品推介是指定某商品或某类别商品，并在APP首页中以版头banner、推介banner形式呈现的推介方式；</p>
+            </div>
+            <div class="sui-div xian">
+                <div class="pull-left">版头Banner管理</div>
+                <div class="pull-right"></div>
+            </div>
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="10%;">编号</th>
+                        <th width="20%;">Banner图片（支持PNG/JPG格式）</th>
+                        <th width="20%;">标题</th>
+                        <th width="20%;">关联商品ID</th>
+                        <th width="20%;">关联内容</th>
+                        <th class="center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="group1_list" id="vo"}
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td><img src="{$vo.cover|get_cover='default'}" alt="" style="width:50px;height:50px;"></td>
+                            <td>{$vo.title}</td>
+                            <td>{$vo.goods_id}</td>
+                            <td>{$vo.content}</td>
+                            <td class="center">
+                                <a href="{:url('recommend_edit')}?id={$vo.id}">修改</a>
+                                -
+                                <a href="javascript:void(0)" onclick="recommend_delete({$vo.id})">删除</a>
+                            </td>
+                        </tr>
+                    {/volist}
+                    <tr>
+                        <td colspan="6">
+                            <a href="{:url('recommend_add')}" class="sui-btn btn-xlarge btn-primary">添加</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="sui-div xian">
+                <div class="pull-left">推介Banner管理</div>
+                <div class="pull-right"></div>
+            </div>
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="10%;">编号</th>
+                        <th width="20%;">Banner图片（支持PNG/JPG格式）</th>
+                        <th width="20%;">标题</th>
+                        <th width="20%;">关联商品ID</th>
+                        <th width="20%;">关联内容</th>
+                        <th class="center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="group2_list" id="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td><img src="{$vo.cover|get_cover='default'}" alt="" style="width:50px;height:50px;"></td>
+                        <td>{$vo.title}</td>
+                        <td>{$vo.goods_id}</td>
+                        <td>{$vo.content}</td>
+                        <td class="center">
+                            <a href="{:url('recommend_edit')}?id={$vo.id}">修改</a>
+                            -
+                            <a href="javascript:void(0)" onclick="recommend_delete({$vo.id})">删除</a>
+                        </td>
+                    </tr>
+                    {/volist}
+                    <tr>
+                        <td colspan="6">
+                            <a href="{:url('recommend_add')}" class="sui-btn btn-xlarge btn-primary">添加</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+    });
+    function recommend_delete(id) {
+        var url = "{:url('recommend_delete')}";
+        //询问框
+        layer.confirm('是否删除？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(url, {id:id}, function (a) {
+                if(a.code == 0){
+                    layer.msg(a.msg, {icon: 2})
+                }else{
+                    handleAjax(a);
+                }
+            });
+        }, function(){
+            layer.close();
+        });
+
+    }
+
+</script>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<style>
+    .xian {
+        overflow: hidden;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .xian .pull-left {
+        width: 9%;
+        color: #28a3ef;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .xian .pull-right {
+        float: left;
+        width: 90%;
+        border-top: 1px dashed #CCCCCC;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('system/admin_user')}">管理员管理</a></li>
+                <li><a href="{:url('system/admin_group')}">权限组管理</a></li>
+                <li class="active"><a href="{:url('system/transfee')}">物流配送<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('system/storefee')}">平台配送</a></li>
+                <li><a href="{:url('system/sharefee')}">佣金设置</a></li>
+            </ul>
+        </div>
+        <div class="content" v-cloak>
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">设置配送费用</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="sui-div xian">
+                <div class="pull-left">{$store_info.name}</div>
+                <div class="pull-right"></div>
+            </div>
+            <div class="sui-div">
+                <p>• 下单客户选则的“配送方式”为“物流配送”时，按模版计算运费并结算至订单金额中；<br/>• 未设定仓库配送运费的，按照通用标准结算运费
+                </p>
+            </div>
+            <table class="sui-table table-bordered sui-form">
+                <thead>
+                    <tr>
+                        <th>配送区域</th>
+                        <th>起算件量（不足按起算量计）</th>
+                        <th>运费（￥）</th>
+                        <th>续件</th>
+                        <th>加运费（￥）</th>
+                        <th class="center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="vo in lists">
+                        <td>
+                            <a data-toggle="modal" data-target="#myModal" data-keyboard="false" class="sui-btn btn-link"
+                               v-on:click="opendetail($index)" v-if="vo.is_common == 0">
+                                设置区域
+                            </a>
+                            {{ vo.pos_name }}
+                        </td>
+                        <td><input type="number" v-model="vo.basesum"></td>
+                        <td><input type="number" v-model="vo.baseprice"></td>
+                        <td><input type="number" v-model="vo.oversum"></td>
+                        <td><input type="number" v-model="vo.overprice"></td>
+                        <td class="center">
+                            <a href="javascript:void(0)" class="sui-btn btn-link" v-on:click="transfee_add($index)">保存</a>
+                            <a href="javascript:void(0)" class="sui-btn btn-link" v-on:click="transfee_delete($index)"  v-if="vo.is_common == 0" >取消</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" align="center">
+                            <div style="width: 100%;text-align: center;">
+                                <a href="javascript:void(0);" class="sui-btn btn-xlarge btn-primary" v-on:click="add();">+添加一个配送区域</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+        <!-- Modal-->
+        <div id="myModal" tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade" style="width: 600px;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="sui-close">×</button>
+                        <h4 id="myModalLabel" class="modal-title">设置配送区域</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="sui-form form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label">所属仓库：</label>
+                                <div class="controls">
+                                    <div class="sui-msg msg-naked">
+                                        <div class="msg-con">{$store_info.name}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--引入3级联动开始-->
+                            {include file="../application/admin/view/public/area.html" label='区域' prov='410000' city='411700' dist='411701'/}
+                            <!--引入3级联动结束-->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
+                        <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    });
+    var vm = new Vue({
+        el: '.content',
+        data: {
+            store_id: "{$store_info.id}",
+            store_name: "{$store_info.name}",
+            index:0,
+            lists: {$lists}
+        },
+        methods: {
+            add:function (id) {
+                var item = {
+                    id:0,
+                    store_id: vm.store_id,
+                    pos_province: '',
+                    pos_city: '',
+                    pos_district: '',
+                    pos_name: '',
+                    basesum: '',
+                    baseprice: '',
+                    oversum: '',
+                    overprice: '',
+                    is_common: 0,
+                };
+                vm.lists.push(item);
+            },
+            transfee_add:function (index) {
+                if(!vm.lists[index].pos_name){
+                    layer.msg('配送区域不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].basesum){
+                    layer.msg('起算件不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].baseprice){
+                    layer.msg('运费不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].oversum){
+                    layer.msg('续件不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].overprice){
+                    layer.msg('加运费不能为空', {icon: 2});
+                    return false;
+                }
+                var url = "{:url('transfee_add')}";
+                //提交数据参数
+                var parms = {
+                    id: vm.lists[index].id,
+                    store_id: vm.store_id,
+                    pos_province: vm.lists[index].pos_province,
+                    pos_city:  vm.lists[index].pos_city,
+                    pos_district:  vm.lists[index].pos_district,
+                    pos_name:  vm.lists[index].pos_name,
+                    basesum:  vm.lists[index].basesum,
+                    baseprice:  vm.lists[index].baseprice,
+                    oversum:  vm.lists[index].oversum,
+                    overprice:  vm.lists[index].overprice,
+                };
+                $.post(url, parms, function (a) {
+                    //弹出提示消息
+                    if (a.status) {
+                        layer.msg(a.info, {icon: 1});
+                        if(a.id){
+                            vm.lists[index].id = a.id;
+                        }
+                    } else {
+                        layer.msg(a.info, {icon: 2})
+                    }
+                });
+            },
+            transfee_delete:function (index) {
+                //询问框
+                layer.confirm('是否操作？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    var url = "{:url('transfee_delete')}";
+                    //提交数据参数
+                    var parms = {
+                        id: vm.lists[index].id,
+                    };
+                    $.post(url, parms, function (a) {
+                        handleAjax(a);
+                    });
+                    vm.lists.splice(index, 1)
+                }, function(){
+                    layer.close();
+                });
+            },
+            opendetail:function (id) {
+                vm.index = id;
+            },
+        }
+    });
+
+    //摸态框设置区域
+    $('#myModal').on('okHide', function(e){
+        var pos_province = $("select[name='pos_province']").val();
+        var pos_city = $("select[name='pos_city']").val();
+        var pos_district = $("select[name='pos_district']").val();
+        var pos_name = $("option[value='"+pos_province+"']").html() + ' ' + $("option[value='"+pos_city+"']").html() + ' ' + $("option[value='"+pos_district+"']").html();
+        var index = vm.index;
+        vm.lists[index].pos_province = pos_province;
+        vm.lists[index].pos_city = pos_city;
+        vm.lists[index].pos_district = pos_district;
+        vm.lists[index].pos_name = pos_name;
+    });
+</script>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('system/admin_user')}">管理员管理</a></li>
+                <li><a href="{:url('system/admin_group')}">权限组管理</a></li>
+                <li><a href="{:url('system/transfee')}">物流配送</a></li>
+                <li class="active"><a href="{:url('system/storefee')}">平台配送<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('system/sharefee')}">佣金设置</a></li>
+            </ul>
+        </div>
+        <div class="content" v-cloak>
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">仓库运费管理</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="r-title">仓库运费设置</div>
+            <div class="sui-div">
+                <p>• 下单客户选则的“配送方式”为“仓库配送”时，该模版计算运费并结算至订单金额中；<br/>• 未设定仓库配送运费的，按照通用标准结算运费；</p>
+            </div>
+            <table class="sui-table table-bordered sui-form">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>仓库名称</th>
+                    <th>起算件量（不足按起算量计）</th>
+                    <th>运费（￥）</th>
+                    <th>续件</th>
+                    <th>加运费（￥）</th>
+                    <th class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="vo in lists">
+                        <td>{{ vo.id }}</td>
+                        <td>{{ vo.name }}</td>
+                        <td><input type="number" v-model="vo.basesum"></td>
+                        <td><input type="number" v-model="vo.baseprice"></td>
+                        <td><input type="number" v-model="vo.oversum"></td>
+                        <td><input type="number" v-model="vo.overprice"></td>
+                        <td class="center">
+                            <a href="javascript:void(0)" class="sui-btn btn-link" v-on:click="storefee_add($index)">保存</a>
+                            <a href="javascript:void(0)" class="sui-btn btn-link" v-on:click="storefee_delete($index)">取消</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+            <form class="queryForm sui-form form-horizontal" action="{:url('storefee')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    });
+    var vm = new Vue({
+        el: '.content',
+        data: {
+            lists: {$lists}
+        },
+        methods: {
+            storefee_add: function (index) {
+                if(!vm.lists[index].basesum){
+                    layer.msg('起算件不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].baseprice){
+                    layer.msg('运费不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].oversum){
+                    layer.msg('续件不能为空', {icon: 2});
+                    return false;
+                }
+                if(!vm.lists[index].overprice){
+                    layer.msg('加运费不能为空', {icon: 2});
+                    return false;
+                }
+                //提交数据参数
+                var parms = {
+                    template_id: vm.lists[index].template_id,
+                    store_id: vm.lists[index].id,
+                    basesum: vm.lists[index].basesum,
+                    baseprice: vm.lists[index].baseprice,
+                    oversum: vm.lists[index].oversum,
+                    overprice: vm.lists[index].overprice
+                };
+                var url = "{:url('storefee_add')}";
+                $.post(url, parms, function (a) {
+                    handleAjax(a);
+                });
+            },
+            storefee_delete: function (index) {
+                //提交数据参数
+                var parms = {
+                    template_id: vm.lists[index].template_id,
+                    store_id: vm.lists[index].id,
+                    basesum: vm.lists[index].basesum,
+                    baseprice: vm.lists[index].baseprice,
+                    oversum: vm.lists[index].oversum,
+                    overprice: vm.lists[index].overprice
+                };
+                //询问框
+                layer.confirm('是否删除？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    var url = "{:url('storefee_delete')}";
+                    $.post(url, parms, function (a) {
+                        if(a.code == 0){
+                            layer.msg(a.msg, {icon: 2})
+                        }
+                        //弹出提示消息
+                        if (a.status) {
+                            layer.msg(a.info, {icon: 1})
+                            vm.lists[index].basesum = '0';
+                            vm.lists[index].baseprice = '0';
+                            vm.lists[index].oversum = '0';
+                            vm.lists[index].overprice = '0';
+                            vm.lists[index].template_id = '0';
+                        } else {
+                            layer.msg(a.info, {icon: 2})
+                        }
+                    });
+                }, function(){
+                    layer.close();
+                });
+
+            }
+        }
+    });
+    $(document).ready(function () {
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+    });
+</script>

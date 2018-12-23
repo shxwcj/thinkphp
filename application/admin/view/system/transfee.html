@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('system/admin_user')}">管理员管理</a></li>
+                <li><a href="{:url('system/admin_group')}">权限组管理</a></li>
+                <li class="active"><a href="{:url('system/transfee')}">物流配送<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('system/storefee')}">平台配送</a></li>
+                <li><a href="{:url('system/sharefee')}">佣金设置</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">物流配送</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="r-title">物流配送运费</div>
+            <div class="sui-div">
+                <p>• 下单客户选则的“配送方式”为“物流配送”时，按模版计算运费并结算至订单金额中；<br/>
+                    • 未设定仓库配送运费的，按照通用标准结算运费；</p>
+            </div>
+            <table class="sui-table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>仓库名称</th>
+
+                    <th class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td class="center">
+                        <a href="{:url('transfee_set')}?id={$vo.id}" class="sui-btn btn-link">设置配送费用</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+            <form class="queryForm sui-form form-horizontal" action="{:url('transfee')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    });
+    $(document).ready(function () {
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+    });
+</script>

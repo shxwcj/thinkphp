@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('goods/index')}">商品列表</a></li>
+                <li class="active"><a href="{:url('goods/recommend_list')}"><i class="sui-icon icon-tb-right pull-right mt3"></i>商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li><a href="{:url('goods/unit_list')}">单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content" v-cloak>
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('goods/index')}">商品</a></li>
+                    <li class="active">商品推介</li>
+                    <li class="active">修改推介</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="bs-form">
+                <div class="r-title">修改推介</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('cate_add')}" method="post">
+                    <div class="control-group">
+                        <label  class="control-label">标题：</label>
+                        <div class="controls">
+                            <input type="text" name="title" v-model="title"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label  class="control-label">关联内容：</label>
+                        <div class="controls">
+                            <input type="text" name="content" v-model="content"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label  class="control-label">商品ID：</label>
+                        <div class="controls">
+                            <input type="number" name="goods_id" v-model="goods_id"/>
+                        </div>
+                    </div>
+                    <!--引入图片上传开始-->
+                    {include file="../application/admin/view/public/picture.html" /}
+                    <!--引入图片上传结束-->
+                    <div class="control-group">
+                        <label  class="control-label">位置：</label>
+                        <div class="controls">
+                            <input type="radio"  value="1" name="group_id" v-model="group_id"><span>版头</span>
+                            <input type="radio"  value="2" name="group_id" v-model="group_id"><span>推介</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <a href="javascript:void(0);" class="sui-btn btn-primary" v-on:click="recommend_edit()">提交</a>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+    });
+    var vm = new Vue({
+        el: '.content',
+        data: {
+            id: "{$info.id}",
+            title: "{$info.title}",
+            content: "{$info.content}",
+            cover: "{$info.cover}",
+            goods_id: "{$info.goods_id}",
+            group_id: "{$info.group_id}"
+        },
+        methods: {
+            recommend_edit: function () {
+                vm.cover = $("input[name='cover']").val();
+                if(!vm.goods_id){
+                    layer.msg('关联商品id必须填写', {icon: 2});
+                    return false;
+                }
+                if(!vm.cover){
+                    layer.msg('必须上传图片', {icon: 2});
+                    return false;
+                }
+                if(!vm.group_id){
+                    layer.msg('图片位置必须设置', {icon: 2});
+                    return false;
+                }
+                //提交数据参数
+                var parms = {
+                    id: vm.id,
+                    title: vm.title,
+                    content: vm.content,
+                    goods_id: vm.goods_id,
+                    cover: vm.cover,
+                    group_id: vm.group_id
+                };
+                var url = '{:url('recommend_edit')}';
+                $.post(url, parms, function (a) {
+                    handleAjax(a);
+                });
+            }
+        }
+    });
+</script>

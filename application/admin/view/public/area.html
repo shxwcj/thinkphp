@@ -1,0 +1,21 @@
+<div class="control-group">
+    <label class="control-label">[label]：</label>
+    <div class="controls" style="width: 90%;">
+        <div id="city" class="row">
+            <select class="prov  col-xs-3 form-control" name="pos_province" style="width: 20%;"></select>
+            <select class="city  col-xs-3 form-control" name="pos_city" style="width: 20%;" disabled="disabled"></select>
+            <select class="dist  col-xs-3 form-control" name="pos_district" style="width: 20%;" disabled="disabled"></select>
+        </div>
+    </div>
+    <script type="text/javascript" src="STATIC_PATH/plugins/area/jquery.cityselect.js"></script>
+    <script>
+        $(function() {
+            $("#city").citySelect({
+                prov: "[prov]",
+                city: "[city]",
+                dist: "[dist]",
+                nodata: "none"
+            });
+        });
+    </script>
+</div>

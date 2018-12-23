@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('cms/index')}">列表</a></li>
+                <li class="active"><a href="{:url('cms/cate_list')}">分类<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('cms/cate_list')}">分类</a></li>
+                    <li class="active">编辑分类</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="bs-form">
+                <div class="r-title">编辑分类</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('cate_edit')}" method="post">
+                    <input type="hidden"  name="id" value="{$info.id}"/>
+                    <div class="control-group">
+                        <label for="cate_name" class="control-label">分类名称：</label>
+                        <div class="controls">
+                            <input type="text" id="cate_name" name="cate_name" value="{$info.cate_name}" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <!--引入图片上传开始-->
+                    {include file="../application/admin/view/public/picture.html" /}
+                    <!--引入图片上传结束-->
+                    <div class="control-group">
+                        <label for="pid" class="control-label">上级分类：</label>
+                        <div class="controls">
+                            <span class="sui-dropdown dropdown-bordered select">
+                                <span class="dropdown-inner">
+                                    {if condition="$pid > 0"}
+                                        <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                            <input id="pid" name="pid" value="{$pid}" type="hidden" data-rules="required">
+                                            <i class="caret"></i>
+                                            <span>{$pname}</span>
+                                        </a>
+                                    {else /}
+                                        <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                            <input id="pid" name="pid" type="hidden" data-rules="required">
+                                            <i class="caret"></i>
+                                            <span>请选择</span>
+                                        </a>
+                                    {/if}
+
+                                    <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
+                                        {volist name="plist" id="vo"}
+                                             <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="javascript:void(0);" value="{$vo.id}">{$vo.cate_name}</a>
+                                             </li>
+                                        {/volist}
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="sort" class="control-label">排序：</label>
+                        <div class="controls">
+                            <input type="number" id="sort" name="sort" value="{$info.sort}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button type="submit" class="sui-btn btn-primary">提交</button>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".cms").addClass("active");
+    });
+</script>

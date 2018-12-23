@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="{:url('cms/index')}">列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('cms/cate_list')}">分类</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('cms/index')}">CMS管理</a></li>
+                    <li class="active">列表</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <form class="queryForm sui-form form-horizontal" action="{:url('index')}" method="get">
+                <input type="text" name="queryText" class="input-medium input-large" placeholder="文章ID/标题/内容"
+                       value="<?php if(isset($_GET['queryText'])){echo $_GET['queryText'];} ?>">
+                <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                <div class=" pull-right">
+                    <a href="{:url('article_add')}" class="sui-btn btn-success">添加内容</a>
+                </div>
+            </form>
+
+            <table class="sui-table table-bordered table-hover" id="list-content">
+                <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" class="checkall"></th>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th width="20%" class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="checkbox" value="{$vo.id}">
+                        <input type="hidden" name="id">
+                    </td>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.title}</td>
+                    <td class="center">
+                        <a href="{:url('article_edit')}?id={$vo.id}">修改</a>
+                        -
+                        <a href="javascript:void(0)" onclick="article_delete_one({$vo.id})">删除</a>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <div class="span4 pull-left">
+                <a href="javascript: void(0);" class="btn-link" onclick="cate_setstatus(0)">批量删除</a>
+            </div>
+            <!-- 分页 -->
+            <div class="c-pagination clearfix">{$list->render()}</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        methods: {
+            search: function() {
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".cms").addClass("active");
+        $(".checkall").change(function () {
+            if ($(this).prop("checked")) {
+                $("tbody input[type=checkbox]").prop("checked", true);
+            } else {
+                $("tbody input[type=checkbox]").prop("checked", false);
+            }
+        });
+    });
+    function article_delete_one(id) {
+        var url = "{:url('article_delete_one')}";
+        //询问框
+        layer.confirm('是否删除？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(url, {id:id}, function (a) {
+                if(a.code == 0){
+                    layer.msg(a.msg, {icon: 2})
+                }else{
+                    handleAjax(a);
+                }
+            });
+        }, function(){
+            layer.close();
+        });
+
+    }
+    function cate_setstatus(status) {
+        var ids = Array();
+        $('input[name="checkbox"]:checked').each(function(){
+            ids.push($(this).val());
+        });
+        var url = "{:url('article_delete')}";
+        //询问框
+        layer.confirm('是否操作？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post(url, {ids:ids,status:status}, function (a) {
+                if(a.code == 0){
+                    layer.msg(a.msg, {icon: 2})
+                }else{
+                    handleAjax(a);
+                }
+            });
+        }, function(){
+            layer.close();
+        });
+    }
+</script>

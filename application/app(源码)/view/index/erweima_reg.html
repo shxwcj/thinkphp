@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="STATIC_PATH/assets/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="STATIC_PATH/assets/aui/public.css"/>
+    <style>
+        .aui-list-view:after{
+            border-top: none !important;
+        }
+        .aui-input-row:first-child:after{
+            border-top:none
+        }
+        .aui-input-row {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-danger">
+    <a class="aui-pull-left">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">注册</div>
+</header>
+<div id="app" v-cloak>
+    <div class="aui-content">
+        <div class="aui-form">
+            <input type="hidden"  v-model="pid"/>
+            <div class="aui-input-row">
+                <input type="number" class="aui-input" placeholder="请输入手机号" v-model="mobile"/>
+            </div>
+            <div class="aui-input-row">
+                <div class="aui-col-xs-8 aui-pull-left">
+                    <input  class="aui-input" type="number" v-model="code" placeholder="输入验证码"/>
+                </div>
+                <div class="aui-col-xs-4 aui-pull-right" style="height: 41px;line-height: 37px;">
+                    <div class="aui-btn"
+                         tapmode v-on:click="send_message()" v-bind:class="{ 'aui-btn-danger': timeer==0 }">
+                        <span v-if="timeer == 0">点击获取</span>
+                        <span v-else>{{ timeer }} s</span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-input-row">
+                <input type="password" class="aui-input" placeholder="输入登录密码" v-model="password"/>
+            </div>
+            <div class="aui-input-row">
+                <input type="password" class="aui-input" placeholder="再次输入登录密码" v-model="repassword"/>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content-padded">
+        <div class="aui-btn aui-btn-danger aui-btn-block aui-margin-t-10" tapmode @click="subform()">注册</div>
+    </div>
+</div>
+<div class="aui-content">
+    <p class="aui-text-center">
+        Copyright@2015-2016
+    </p>
+    <p class="aui-text-center">
+        乐文易购版权所有
+    </p>
+</div>
+</body>
+</html>
+<script src="STATIC_PATH/assets/js/vue2.0.js"></script>
+<script src="STATIC_PATH/assets/js/zepto.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            pid: "{$pid}",
+            mobile: '',
+            code: '',
+            password: '',
+            repassword: '',
+            reement: '',
+
+            timeer: 0,
+            count: 60,//短信验证码发送间隔时间设置
+        },
+        methods: {
+            //发送短信验证码
+            send_message: function () {
+                if(vm.timeer >0){
+                    return false;
+                }
+                if (vm.mobile == '') {
+                    alert('请输入手机号码');
+                    return
+                }
+                if (!(/^1[3|4|5|8]\d{9}$/.test(vm.mobile))) {
+                    alert('手机号码有误');
+                    return
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/app/member/check_mobile',
+                    data: {
+                        mobile: vm.mobile,
+                    },
+                    dataType: 'json',
+                    timeout: 300,
+                    async: true, //(默认： true)，所有请求均为异步。如果需发送同步请求，请将此设置为 false。
+                    cache: false,//(默认： true): 浏览器是否应该被允许缓存GET响应。从v1.1.4开始，当dataType选项为 "script" 或 jsonp时，默认为false。
+                    context: $('body'),
+                    success: function (ret) {
+                        if (ret) {
+                            if (ret.status == 1) {
+                                var temp_count = vm.count;
+                                vm.timeer = temp_count;
+                                var coutnnum = setInterval(function () {
+                                    if(vm.timeer == 0){
+                                        clearInterval(coutnnum);
+                                        return;
+                                    }else{
+                                        vm.timeer -= 1;
+                                    }
+                                },'1000');
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "/app/member/sendsms",
+                                    data: {
+                                        mobile: vm.mobile
+                                    },
+                                    dataType: 'json',
+                                    timeout: 300,
+                                    async: true, //(默认： true)，所有请求均为异步。如果需发送同步请求，请将此设置为 false。
+                                    cache: false,//(默认： true): 浏览器是否应该被允许缓存GET响应。从v1.1.4开始，当dataType选项为 "script" 或 jsonp时，默认为false。
+                                    context: $('body'),
+                                    success: function (ret) {
+                                        alert(ret.msg);
+                                    }
+                                });
+                            }else{
+                                alert(ret.msg);
+                            }
+                            console.log(JSON.stringify(ret));
+                        } else {
+
+                            console.log(JSON.stringify(err));
+                        }
+                    }
+                });
+            },
+            subform:function () {
+                var mobile = vm.mobile;
+                var code = vm.code;
+                var password = vm.password;
+                var repassword = vm.repassword;
+                var reement = vm.reement;
+                if (mobile == '') {
+                    alert("请输入手机号码");
+                    return
+                }
+                if (!(/^1[3|4|5|8]\d{9}$/.test(mobile))) {
+                    alert("手机号码有误");
+                    return
+                }
+                if (code == '') {
+                    alert("请输入验证码");
+                    return
+                }
+                if (password == '') {
+                    alert("请输入登录密码");
+                    return
+                }
+                if (password.length < 6) {
+                    alert("登录不能少于6位数");
+                    return
+                }
+                if (repassword == '') {
+                    alert("请再次输入登录密码");
+                    return
+                }
+                if (password != repassword) {
+                    alert("两次输入密码不一致");
+                    return
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/app/member/register',
+                    data: {
+                        mobile: mobile,
+                        smscode: code,
+                        password: password,
+                        pid: vm.pid,
+                    },
+                    dataType: 'json',
+                    timeout: 300,
+                    async: true, //(默认： true)，所有请求均为异步。如果需发送同步请求，请将此设置为 false。
+                    cache: false,//(默认： true): 浏览器是否应该被允许缓存GET响应。从v1.1.4开始，当dataType选项为 "script" 或 jsonp时，默认为false。
+                    context: $('body'),
+                    success: function (ret) {
+                        alert(ret.msg);
+                        console.log(JSON.stringify(ret));
+                    }
+                });
+            }
+        }
+    });
+</script>

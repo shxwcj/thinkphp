@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="{:url('system/admin_user')}">管理员管理</a></li>
+                <li class="active"><a href="{:url('system/admin_group')}">权限组管理<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('system/sharefee')}">佣金设置</a></li>
+            </ul>
+        </div>
+        <div class="content" id="app" v-cloak>
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">用户组编辑</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="bs-form">
+                <div class="r-title">部门信息</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="{:url('admin_group_edit')}" method="post">
+                    <div class="control-group">
+                        <label for="cate_name" class="control-label">部门名称：</label>
+                        <div class="controls">
+                            <input type="text" id="cate_name" v-model="title" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <div class="r-title">系统权限设置</div>
+                    <div class="control-group">
+                        <table class="set-table">
+                            <tr v-for="(index,vo) in list">
+                                <td class="set-cols1">{{vo.name}}：</td>
+                                <td class="set-cols2">
+                                    <label data-toggle="checkbox" class="checkbox-pretty-new" v-for="(index2,vo2) in vo.list">
+                                        <input type="checkbox"  class="ml15" value="{{vo2.status}}" v-model="vo2.status">
+                                        <span class="ml10">{{vo2.name}}</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <a href="javascript:void(0);" class="sui-btn btn-primary" @click="admin_group_add()">提交</a>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: "{$id}",
+            title: "{$title}",
+            list: {$list},
+        },
+        methods: {
+            admin_group_add: function () {
+                if(!vm.title){
+                    alert('请填写部门信息');
+                    return false;
+                }
+                var url = "{:url('admin_group_edit')}";
+                $.post(url, {
+                    id: vm.id,
+                    title: vm.title,
+                    list: JSON.stringify(vm.list),
+                }, function (a) {
+                    handleAjax(a);
+                });
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    });
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{$info.goods_name}</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="STATIC_PATH/assets/aui/aui.css"/>
+    <style>
+        .aui-list-view:after{
+            border-top: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-content">
+        <p class="aui-padded-10 aui-text-center">{$info.goods_name}</p>
+        {volist name="list" id="vo"}
+        <ul class="aui-list-view aui-grid-view">
+            <li class="aui-list-view-cell aui-img aui-col-xs-12">
+                <img class="aui-img-object" src="{$vo.url}">
+            </li>
+        </ul>
+        {/volist}
+    </div>
+</body>
+</html>

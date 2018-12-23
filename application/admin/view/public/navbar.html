@@ -1,0 +1,21 @@
+<header class="sui-navbar navbar-fixed-top">
+    <div class="navbar-inner"><a href="#" class="sui-brand sui-text-center"><img src="STATIC_PATH/assets/img/logo.png">管理后台</a>
+        <ul class="sui-nav nav-withicon">
+            <li class="menuitem menuworkbench"><a href="{:url('index/index')}"><i class="icon icon-workbench"></i>工作台</a></li>
+            <li class="menuitem menuorder"><a href="{:url('order/index')}"><i class="icon icon-order"></i>订单</a></li>
+            <li class="menuitem menugoods"><a href="{:url('goods/index')}"><i class="icon icon-goods"></i>商品</a></li>
+
+            <li class="menuitem menudrp"><a href="{:url('drp/index')}"><i class="icon icon-drp"></i>分销商</a></li>
+
+            <li class="menuitem cms"><a href="{:url('cms/index')}"><i class="icon icon-agent"></i>cms管理</a></li>
+        </ul>
+        <ul class="sui-nav pull-right nav-withicon nav-withicon-r">
+            <li class="menuitem settings"><a href="{:url('system/admin_user')}"><i class="sui-icon icon-pc-settings"></i>&nbsp;设置</a></li>
+            <li><a href="javascript:void(0)" onclick='removeRuntime("{:url('index/removeRuntime')}")'>
+                <i class="sui-icon icon-tb-delete"></i>&nbsp;清除缓存</a>
+            </li>
+            <li><a href="/admin/#/index"><i class="sui-icon icon-pc-question-circle"></i>&nbsp;帮助</a></li>
+            <li><a href="{:url('login/logout')}"><i class="sui-icon icon-touch-right-rect"></i>&nbsp;退出</a></li>
+        </ul>
+    </div>
+</header>

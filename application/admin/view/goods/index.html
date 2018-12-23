@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="{:url('goods/index')}">商品列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('goods/recommend_list')}">商品推介</a></li>
+                <li><a href="{:url('goods/cate_list')}">分类管理</a></li>
+                <li><a href="{:url('goods/unit_list')}">单位管理</a></li>
+            </ul>
+        </div>
+        <div class="content" v-cloak>
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('goods/index')}">商品</a></li>
+                    <li class="active">商品列表</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <form class="queryForm sui-form form-horizontal" action="{:url('index')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+                <div class=" pull-right"><a href="{:url('goods_add')}" class="sui-btn btn-success">添加商品</a></div>
+                <div class="control-group">
+                    <span>筛选内容：</span>
+                    <input type="text" name="queryText" v-model="queryText" class="input-medium input-large ml20" placeholder="{$queryText}">
+                    <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                </div>
+                <div class="control-group">
+                    <table class="set-table">
+                        <tr class="noline">
+                            <td class="set-cols1 text-l w82">商品分类：</td>
+                            <td class="set-cols2">
+                                <label data-toggle="checkbox" class="checkbox-pretty-new mr15" v-for="cate in cate_list">
+                                    <input type="checkbox"  name="cate_ids[]" class="" value="{{ cate.id }}" v-model="cate_ids">
+                                    <span class="ml10">{{ cate.cate_name }}</span>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>商品编号</th>
+                        <th width="20%">商品名称</th>
+                        <th>商品规格</th>
+                        <th>零售价</th>
+                        <th>成本价</th>
+                        <th>分销佣金</th>
+                        <th width="10%" class="center">管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.sku}</td>
+                        <td>{$vo.goods_name}</td>
+                        <td>{$vo.standard_value1}&nbsp;{$vo.standard_value2}&nbsp;{$vo.standard_value3}</td>
+                        <td>{$vo.price}</td>
+                        <td>{$vo.costprice}</td>
+                        <td>{$vo.fenxiao_rate}%</td>
+                        <td class="center">
+                            <a href="{:url('goods/goods_edit')}?id={$vo.id}" class="btn-link">修改</a>
+                        </td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '.content',
+        data: {
+            cate_ids: {$cate_ids},
+            queryText: "{$queryText}",
+            cate_list: {$cate_list}
+        },
+        methods: {
+            search: function () {
+                $("#page").val(0);
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menugoods").addClass("active");
+
+        $(".checkall").change(function () {
+            if ($(this).prop("checked")) {
+                $("tbody input[type=checkbox]").prop("checked", true);
+            } else {
+                $("tbody input[type=checkbox]").prop("checked", false);
+            }
+        });
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+    });
+</script>

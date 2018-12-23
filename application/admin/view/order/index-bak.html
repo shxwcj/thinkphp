@@ -1,0 +1,132 @@
+<!--begin breadcrumb-->
+<div class="breadcrumb">
+    <ul class="sui-breadcrumb breadcrumb-dark">
+        <li><a href="#/index">首页</a></li>
+        <li><a href="#/order">订单</a></li>
+        <li class="active">所有订单</li>
+    </ul>
+</div>
+<!--end breadcrumb-->
+<!--start 右侧-->
+<div class="main-t clearfix">
+    <div class="sidebar">
+        <ul class="sui-nav nav-list nav-large">
+            <li class="active"><a>所有订单<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <form class="queryForm sui-form form-horizontal" action="{:url('index')}" method="post">
+            <div class="control-group">
+                <span>筛选内容：</span>
+                <input type="text" name="queryText" class="input-medium input-large ml20" placeholder="请输入商品名/订单号">
+                <a class="queryBtn sui-btn btn-primary ml15">筛选</a>
+            </div>
+            <div class="control-group">
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <span>配送仓库：</span>
+                    <input type="checkbox" name="checkboxstore" class="ml15"><span class="ml10">CK00001 郑州仓库</span>
+                </label>
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <input type="checkbox" name="checkboxstore" class="ml15"><span class="ml10">CK00002 开封仓库</span>
+                </label>
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <input type="checkbox" name="checkboxstore" class="ml15"><span class="ml10">CK00003 许昌仓库</span>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <span>订单状态：</span>
+                    <input type="checkbox" name="checkboxorder" class="ml15"><span class="ml10">待发货订单</span>
+                </label>
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <input type="checkbox" name="checkboxorder" class="ml15"><span class="ml10">已发货订单</span>
+                </label>
+                <label data-toggle="checkbox" class="checkbox-pretty-new">
+                    <input type="checkbox" name="checkboxorder" class="ml15"><span class="ml10">已完成订单</span>
+                </label>
+            </div>
+        </form>
+
+        <table class="sui-table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>订单号</th>
+                <th>下单时间</th>
+                <th>客户</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>所属业务区域</th>
+                <th>配送仓库</th>
+                <th>配送要求</th>
+                <th>区域代理商</th>
+                <th width="10%" class="center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>D20161005-452011</td>
+                <td>2016-10-05 14:07</td>
+                <td>心花怒放 18411002140</td>
+                <td>￥1500.00</td>
+                <td>待发货</td>
+                <td>河南省  开封市 金明区</td>
+                <td>CK0002 开封仓库</td>
+                <td>就近仓库配送</td>
+                <td>18511014108</td>
+                <td class="center">
+                    <a href="" class="btn-link">详情</a>
+                </td>
+            </tr>
+            <tr>
+                <td>D20161005-452011</td>
+                <td>2016-10-05 14:07</td>
+                <td>心花怒放 18411002140</td>
+                <td>￥1500.00</td>
+                <td>待发货</td>
+                <td>河南省  开封市 金明区</td>
+                <td>CK0002 开封仓库</td>
+                <td>就近仓库配送</td>
+                <td>18511014108</td>
+                <td class="center">
+                    <a href="" class="btn-link">详情</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 分页 -->
+        <div class="sui-pagination pagination-small pull-right">
+            <ul>
+                <li class="prev disabled"><a href="#">«上一页</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li class="dotted"><span>...</span></li>
+                <li class="next"><a href="#">下一页»</a></li>
+            </ul>
+            <div><span>共10页&nbsp;</span><span>到&nbsp;<input type="text" class="page-num"><button class="page-confirm" onclick="">确定</button>页</span></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menuorder").addClass("active");
+
+        $(".checkall").change(function () {
+            if ($(this).prop("checked")) {
+                $("tbody input[type=checkbox]").prop("checked", true);
+            } else {
+                $("tbody input[type=checkbox]").prop("checked", false);
+            }
+        });
+
+        // 查找
+        $(".queryBtn").click(function () {
+            $.ajaxHtml($(".queryForm").prop("action"), $(".queryForm").prop("method"), $('.queryForm').serialize());
+        })
+    });
+</script>

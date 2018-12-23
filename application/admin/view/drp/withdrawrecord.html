@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li><a href="/admin/drp/index">分销商列表</a></li>
+                <li><a href="/admin/drp/withdrawapply">提现申请</a></li>
+                <li class="active"><a href="/admin/drp/withdrawrecord">提现记录<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="/admin/index/index">首页</a></li>
+                    <li><a href="/admin/drp/index">分销商</a></li>
+                    <li class="active">提现申请</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <form class="queryForm sui-form form-inline" action="{:url('withdrawrecord')}" method="post">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+                <div class="control-group">
+                    <span>筛选内容：</span>
+                    <input type="text" name="queryText" value="{$queryText}" class="input-medium input-large ml20" placeholder="请输入客户账号/手机号">
+                    <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                </div>
+            </form>
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>提现用户</th>
+                    <th>佣金账户余额</th>
+                    <th>申请提现时间</th>
+                    <th>申请提现金额</th>
+                    <th>实际到账金额</th>
+                    <th>提现方式</th>
+                    <th class="center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.mobile}</td>
+                    <td>{$vo.money}</td>
+                    <td>{$vo.create_time|date="Y-m-d H:m:s",###}</td>
+                    <td><span class="sui-text-warning">{$vo.tixian_money}</span></td>
+                    <td><span class="sui-text-warning">{$vo.recevie_money}</span></td>
+                    <td>银行账号<br/><span class="sui-text-warning">{$vo.mid|get_card_number}</span></td>
+                    <td class="center">
+                        {if condition="$vo.status eq 1"}
+                        <span class="sui-text-success">提现成功</span>
+                        {else /}
+                        <span class="sui-text-danger">提现失败</span>
+                        {/if}
+
+
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            queryText: "{$queryText}",
+        },
+        methods: {
+            search: function() {
+                $("#page").val(0);
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menudrp").addClass("active");
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
+    });
+</script>

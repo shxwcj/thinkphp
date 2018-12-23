@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t">
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="{:url('system/index')}">系统设置<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="{:url('system/admin_user')}">管理员</a></li>
+                <li><a href="{:url('system/admin_group')}">权限组管理</a></li>
+                <li><a href="{:url('system/sharefee')}">佣金提现设置</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="{:url('index/index')}">首页</a></li>
+                    <li><a href="{:url('system/index')}">设置</a></li>
+                    <li class="active">系统设置</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="sui-pagination pagination-small pull-right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".settings").addClass("active");
+    })
+</script>

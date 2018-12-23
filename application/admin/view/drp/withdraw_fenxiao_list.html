@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+{include file="public:head"}
+<style>
+    .u-header-box {
+        position: relative;
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .u-header-box p {
+        margin-bottom: 5px;
+    }
+
+    .u-header-box .name {
+        font-size: 18px;
+    }
+
+    .u-header-box .sui-text-warning {
+        font-size: 14px;
+    }
+
+    .u-header-box .time {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .u-total-box {
+        margin-bottom: 10px;
+    }
+
+    .u-total-box .total-ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .u-total-box .total-ul li {
+        width: 21%;
+        position: relative;
+        height: 100px;
+        margin-right: 5%;
+        background: #efefef;
+    }
+
+    .u-total-box .total-ul li .tit {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .u-total-box .total-ul li .price {
+        text-align: center;
+        line-height: 100px;
+        font-size: 16px;
+    }
+</style>
+<body>
+<div class="sui-layout">
+    {include file="public:navbar"}
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a href="/admin/drp/index">分销商列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="/admin/drp/withdrawapply">提现申请</a></li>
+                <li><a href="/admin/drp/withdrawrecord">提现记录</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--begin breadcrumb-->
+            <div class="breadcrumb">
+                <ul class="sui-breadcrumb breadcrumb-dark">
+                    <li><a href="/admin/index/index">首页</a></li>
+                    <li><a href="/admin/drp/index">分销商</a></li>
+                    <li class="active">分销商列表</li>
+                </ul>
+            </div>
+            <!--end breadcrumb-->
+            <div class="u-header-box">
+                <p class="name">{$member_info.mobile} {$member_info.id|get_daili_biaoshi}</p>
+                <p>账号：{$member_info.mobile}</p>
+                <p class="time">注册时间：{$member_info.create_time|date="Y-m-d H:m:s",###}</p>
+            </div>
+            <form action="{:url('withdraw_fenxiao_list')}" method="post" id="searchForm">
+                <input type="hidden" id="page" name="page" value="{$currentPage}">
+                <input type="hidden" name="id" value="{$id}">
+            </form>
+            <div class="u-total-box">
+                <ul class="total-ul clearfix">
+                    <li class="fl" style="background: rgba(216, 240, 251, 0.47);">
+                        <p class="tit">下线--消费订单总数</p>
+                        <p class="price sui-text-warning">{$order_sum}</p>
+                    </li>
+                    <li class="fl" style=" background: rgba(243, 241, 222, 0.21);">
+                        <p class="tit">下线--联盟伙伴总人数</p>
+                        <p class="price sui-text-warning">{$member_info.id|get_children_sum}</p>
+                    </li>
+                    <li class="fl" style="background: rgba(255,0,0,0.05);">
+                        <p class="tit">下线--订单金额合计</p>
+                        <p class="price sui-text-warning">￥{$order_total}</p>
+                    </li>
+                    <li class="fr mr0" style="background:rgba(73, 84, 230, 0.14);">
+                        <p class="tit">佣金合计</p>
+                        <p class="price sui-text-warning">￥{$member_info.id|get_fenxiao_sum}</p>
+                    </li>
+                </ul>
+            </div>
+            <table class="sui-table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>下单时间</th>
+                        <th>订单金额</th>
+                        <th>订单状态</th>
+                        <th width="10%" class="center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                    <tr>
+                        <td>{$vo.order_sn}</td>
+                        <td>{$vo.create_time|date="Y-m-d H:m:s",###}</td>
+                        <td>￥{$vo.total_price}<br>运费：{$vo.trans_price},&nbsp;&nbsp;共计：<span class="sui-text-warning">￥{$vo.order_total}</span></td>
+                        <td>
+                            {switch name="vo.status"}
+                            {case value="0"}<span class="sui-text-danger">待付款</span>{/case}
+                            {case value="1"}<span class="sui-text-info">代发货</span>{/case}
+                            {case value="2"}<span class="sui-text-success">已完成</span>{/case}
+                            {case value="3"}已取消{/case}
+                            {/switch}
+                        </td>
+                        <td class="center">
+                            <a href="javascript:void(0)" class="btn-link"
+                               data-toggle="modal" data-target="#myModal" data-keyboard="false" onclick='init({$key})'>详情</a>
+                        </td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
+            <!-- Modal-->
+            <div id="myModal" tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade" style="width: 600px;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-hidden="true" class="sui-close">×</button>
+                            <h4 id="myModalLabel" class="modal-title">订单详情</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="sui-form form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">订单号：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{ order_sn }}</div>
+                                        </div>
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">下单时间：{{ create_time }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">数量：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{ goods_sum }}</div>
+                                        </div>
+                                    </div>
+                                    <label class="control-label">订单金额：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{ total_price }}</div>
+                                        </div>
+                                    </div>
+                                    <label class="control-label">运费：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{ trans_price }}</div>
+                                        </div>
+                                    </div>
+                                    <label class="control-label">共计：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con"><span class="sui-text-warning">{{ order_total }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="control-group">
+                                    <label class="control-label">收货人姓名：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{　name　}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">手机号：{{ mobile }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">收货地址：</label>
+                                    <div class="controls">
+                                        <div class="sui-msg msg-naked">
+                                            <div class="msg-con">{{ address_info }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            order_sn: '',
+            create_time: '',
+            goods_sum: '',
+            total_price: '',
+            trans_price: '',
+            order_total: '',
+            name: '',
+            mobile: '',
+            address_info: '',
+            list:[]
+
+        }
+    });
+    $(document).ready(function () {
+        $(".menuitem").removeClass("active");
+        $(".menudrp").addClass("active");
+
+         vm.list = {$vmlist};
+        //分页
+        $('.sui-pagination').pagination({
+            pages: {$lastpage},
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: {$currentPage},
+            displayPage: 10,
+            onSelect: function (num) {
+                $("#page").val(num);
+                $("#searchForm").submit();
+            }
+        });
+    });
+    $('#myModal').on('hide', function(e){
+        console.log('hide');
+    });
+
+    function init(index) {
+        vm.order_sn = vm.list[index].order_sn;
+        vm.create_time = vm.list[index].create_time;
+        vm.goods_sum = vm.list[index].goods_sum;
+        vm.total_price = vm.list[index].total_price;
+        vm.trans_price = vm.list[index].trans_price;
+        vm.order_total = vm.list[index].order_total;
+        vm.name = vm.list[index].name;
+        vm.mobile = vm.list[index].mobile;
+        vm.address_info = vm.list[index].address_info;
+    }
+</script>
