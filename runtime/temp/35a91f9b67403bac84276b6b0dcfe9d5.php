@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\system\admin_group.html";i:1489983998;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\drp\index.html";i:1545790057;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -258,67 +258,66 @@
     <div class="main-t" id="app" v-cloak>
         <div class="sidebar">
             <ul class="sui-nav nav-list nav-large">
-                <li><a href="<?php echo url('system/admin_user'); ?>">管理员管理</a></li>
-                <li class="active"><a href="<?php echo url('system/admin_group'); ?>">权限组管理<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
-                <li><a href="<?php echo url('system/sharefee'); ?>">佣金设置</a></li>
+                <li class="active"><a href="/admin/drp/index">分销商列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="/admin/drp/withdrawapply">提现申请</a></li>
+                <li><a href="/admin/drp/withdrawrecord">提现记录</a></li>
             </ul>
         </div>
         <div class="content">
             <!--begin breadcrumb-->
             <div class="breadcrumb">
                 <ul class="sui-breadcrumb breadcrumb-dark">
-                    <li><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                    <li><a href="<?php echo url('system/index'); ?>">设置</a></li>
-                    <li class="active">权限组管理</li>
+                    <li><a href="/admin/index/index">首页</a></li>
+                    <li><a href="/admin/drp/index">分销商</a></li>
+                    <li class="active">分销商列表</li>
                 </ul>
             </div>
             <!--end breadcrumb-->
-            <form class="queryForm sui-form form-horizontal" action="<?php echo url('admin_group'); ?>" method="post">
+            <form class="queryForm sui-form form-horizontal" action="<?php echo url('index'); ?>" method="post">
                 <input type="hidden" id="page" name="page" value="<?php echo $currentPage; ?>">
-                <input type="text" name="queryText" class="input-medium input-large" placeholder="ID/名称" value="<?php echo $queryText; ?>">
-                <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
-                <div class=" pull-right"><a href="<?php echo url('admin_group_add'); ?>" class="sui-btn btn-success">添加用户组</a></div>
+                <div class="control-group">
+                    <span>筛选内容：</span>
+                    <input type="text" name="queryText" value="<?php echo $queryText; ?>"
+                           class="input-medium input-large ml20" placeholder="请输入客户账号/手机号">
+                    <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                </div>
             </form>
 
-            <table class="sui-table table-bordered table-hover" id="list-content">
+            <table class="sui-table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th width="2%"><input type="checkbox" name="checkall" class="checkall"></th>
-                    <th>ID</th>
-                    <th>用户名</th>
-                    <th>状态</th>
-                    <th width="20%" class="center">操作</th>
+                    <th>客户账号</th>
+                    <th>昵称</th>
+                    <th>消费订单数（单）</th>
+                    <th>累计消费</th>
+                    <th>上级联盟伙伴</th>
+                    <th>下级联盟伙伴数</th>
+                    <th>佣金余额</th>
+                    <th>注册时间</th>
+                    <th class="center">操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php if(is_array($list) || $list instanceof \think\Collection): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                 <tr>
-                    <td>
-                        <input type="checkbox" name="checkbox" value="<?php echo $vo['id']; ?>">
-                        <input type="hidden" name="id">
-                    </td>
-                    <td><?php echo $vo['id']; ?></td>
-                    <td><?php echo $vo['title']; ?></td>
-                    <td>
-                        <?php if($vo['status'] == 1): ?>
-                        <a href="javascript:void(0);" class="sui-btn btn-small btn-primary">启用</a>
-                        <?php else: ?>
-                        <a href="javascript:void(0);" class="sui-btn btn-small">禁用</a>
-                        <?php endif; ?>
-                    </td>
+                    <td><?php echo $vo['mobile']; ?></td>
+                    <td><?php echo $vo['username']; ?><span class="sui-text-warning ml10">分销商</span></td>
+
+                    <td><?php echo get_order_sum($vo['id']); ?></td>
+                    <td><?php echo get_total_price($vo['id']); ?></td>
+                    <td><?php echo get_pid_name($vo['pid']); ?></td>
+                    <td><?php echo get_children_sum($vo['id']); ?></td>
+                    <td>￥<?php echo get_fenxiao_sum($vo['id']); ?></td>
+                    <td><?php echo date("Y-m-d H:m:s",$vo['create_time']); ?></td>
                     <td class="center">
-                        <a href="<?php echo url('admin_group_edit'); ?>?id=<?php echo $vo['id']; ?>">修改</a>
-                        -
-                        <a href="javascript:void(0)" onclick="admin_group_delete(<?php echo $vo['id']; ?>)">删除</a>
+                        <a href="<?php echo url('withdraw_order_list'); ?>?id=<?php echo $vo['id']; ?>" class="sui-btn btn-link">订单列表</a>-
+                        <a href="<?php echo url('withdraw_fenxiao_list'); ?>?id=<?php echo $vo['id']; ?>" class="sui-btn btn-link">分佣列表</a>
                     </td>
                 </tr>
                 <?php endforeach; endif; else: echo "" ;endif; ?>
                 </tbody>
             </table>
-            <div class="span4 pull-left">
-                <a href="javascript: void(0);" class="btn-link" onclick="admin_group_setstatus(1)">批量启用</a>-
-                <a href="javascript: void(0);" class="btn-link" onclick="admin_group_setstatus(0)">批量禁用</a>
-            </div>
+
             <!-- 分页 -->
             <div class="sui-pagination pagination-small pull-right"></div>
         </div>
@@ -341,8 +340,7 @@
     });
     $(document).ready(function () {
         $(".menuitem").removeClass("active");
-        $(".settings").addClass("active");
-
+        $(".menudrp").addClass("active");
         //分页
         $('.sui-pagination').pagination({
             pages: <?php echo $lastpage; ?>,
@@ -356,51 +354,5 @@
                 $("form").submit();
             }
         });
-        $(".checkall").change(function () {
-            if ($(this).prop("checked")) {
-                $("tbody input[type=checkbox]").prop("checked", true);
-            } else {
-                $("tbody input[type=checkbox]").prop("checked", false);
-            }
-        });
     });
-    function admin_group_setstatus(status) {
-        var ids = Array();
-        $('input[name="checkbox"]:checked').each(function(){
-            ids.push($(this).val());
-        });
-        var url = "<?php echo url('admin_group_setstatus'); ?>";
-        //询问框
-        layer.confirm('是否操作？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post(url, {ids:ids,status:status}, function (a) {
-                if(a.code == 0){
-                    layer.msg(a.msg, {icon: 2})
-                }else{
-                    handleAjax(a);
-                }
-            });
-        }, function(){
-            layer.close();
-        });
-    }
-    function admin_group_delete(id) {
-        var url = "<?php echo url('admin_group_delete'); ?>";
-        //询问框
-        layer.confirm('是否删除？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post(url, {id:id}, function (a) {
-                if(a.code == 0){
-                    layer.msg(a.msg, {icon: 2})
-                }else{
-                    handleAjax(a);
-                }
-            });
-        }, function(){
-            layer.close();
-        });
-
-    }
 </script>

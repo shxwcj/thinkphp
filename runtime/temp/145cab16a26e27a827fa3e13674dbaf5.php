@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:90:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\goods\unit_list.html";i:1484531210;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:96:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\system\admin_user_add.html";i:1489984030;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,13 +255,12 @@
     </div>
 </header>
     <!--start 右侧-->
-    <div class="main-t" id="app" v-cloak>
+    <div class="main-t">
         <div class="sidebar">
             <ul class="sui-nav nav-list nav-large">
-                <li><a href="<?php echo url('goods/index'); ?>">商品列表</a></li>
-                <li><a href="<?php echo url('goods/recommend_list'); ?>">商品推介</a></li>
-                <li><a href="<?php echo url('goods/cate_list'); ?>">分类管理</a></li>
-                <li class="active"><a href="<?php echo url('goods/unit_list'); ?>"><i class="sui-icon icon-tb-right pull-right mt3"></i>单位管理</a></li>
+                <li class="active"><a href="<?php echo url('system/admin_user'); ?>">管理员管理<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="<?php echo url('system/admin_group'); ?>">权限组管理</a></li>
+                <li><a href="<?php echo url('system/sharefee'); ?>">佣金设置</a></li>
             </ul>
         </div>
         <div class="content">
@@ -269,140 +268,83 @@
             <div class="breadcrumb">
                 <ul class="sui-breadcrumb breadcrumb-dark">
                     <li><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                    <li><a href="<?php echo url('goods/index'); ?>">商品</a></li>
-                    <li class="active">单位管理</li>
+                    <li><a href="<?php echo url('system/index'); ?>">设置</a></li>
+                    <li class="active">管理员添加</li>
                 </ul>
             </div>
             <!--end breadcrumb-->
-            <form class="queryForm sui-form form-inline" action="<?php echo url('unit_list'); ?>" method="post">
-                <input type="hidden" id="page" name="page" value="<?php echo $currentPage; ?>">
-                <input type="text" name="queryText" class="input-medium input-large" placeholder="单位名称" v-model="queryText">
-                <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
-                <div class=" pull-right"><a href="<?php echo url('goods/unit_add'); ?>" class="sui-btn btn-success">添加单位</a></div>
-            </form>
-            <table class="sui-table table-bordered table-hover" id="list-content">
-                <thead>
-                <tr>
-                    <th width="2%"><input type="checkbox" name="checkall" class="checkall"></th>
-                    <th>名称</th>
-                    <th>状态</th>
-                    <th width="20%" class="center">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if(is_array($list) || $list instanceof \think\Collection): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="checkbox" value="<?php echo $vo['id']; ?>">
-                        <input type="hidden" name="id" value="<?php echo $vo['id']; ?>">
-                    </td>
-                    <td><?php echo $vo['name']; ?></td>
-                    <td>
-                        <?php if($vo['status'] == 1): ?>
+            <div class="bs-form" id="app">
+                <div class="r-title">添加管理员</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="<?php echo url('admin_user_add'); ?>" method="post">
+                    <div class="control-group">
+                        <label  class="control-label">昵称：</label>
+                        <div class="controls">
+                            <input type="text"  name="nickname" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label  class="control-label">用户名：</label>
+                        <div class="controls">
+                            <input type="text"  name="username" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label  class="control-label">密码：</label>
+                        <div class="controls">
+                            <input type="password"  name="password" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label  class="control-label">手机号：</label>
+                        <div class="controls">
+                            <input type="number"  name="mobile" data-rules="required|minlength=2|maxlength=50"/>
+                        </div>
+                    </div>
 
-                            <a href="javascript:void(0);" class="sui-btn btn-small btn-primary">启用</a>
-                        <?php else: ?>
-                            <a href="javascript:void(0);" class="sui-btn btn-small">禁用</a>
-                        <?php endif; ?>
-                    </td>
-                    <td class="center">
-                        <a href="<?php echo url('unit_edit'); ?>?id=<?php echo $vo['id']; ?>">修改</a>
-                        -
-                        <a href="javascript:void(0)" onclick="unit_delete(<?php echo $vo['id']; ?>)">删除</a>
-                    </td>
-                </tr>
-                <?php endforeach; endif; else: echo "" ;endif; ?>
-                </tbody>
-            </table>
-            <div class="span4 pull-left">
-                <a href="javascript: void(0);" class="btn-link" onclick="unit_setstatus(1)">批量启用</a> -
-                <a href="javascript: void(0);" class="btn-link" onclick="unit_setstatus(0)">批量禁用</a>
+                    <div class="control-group">
+                        <label for="pid" class="control-label">上级分类：</label>
+                        <div class="controls">
+                            <span class="sui-dropdown dropdown-bordered select">
+                                <span class="dropdown-inner input-large">
+                                    <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                        <input id="pid" name="group" type="hidden" data-rules="required">
+                                        <i class="caret"></i>
+                                        <span>请选择</span>
+                                    </a>
+                                    <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
+                                        <?php if(is_array($plist) || $plist instanceof \think\Collection): $i = 0; $__LIST__ = $plist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                             <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="javascript:void(0);" value="<?php echo $vo['id']; ?>"><?php echo $vo['title']; ?></a>
+                                             </li>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button type="submit" class="sui-btn btn-primary">提交</button>
+                            <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!-- 分页 -->
-            <div class="sui-pagination pagination-small pull-right"></div>
         </div>
     </div>
 </div>
 </body>
 </html>
-<script type="text/javascript">
+<script>
     var vm = new Vue({
         el: '#app',
         data: {
-            queryText: "<?php echo $queryText; ?>",
+            store_ids: [],
         },
-        methods: {
-            search: function() {
-                $("#page").val(0);
-                $("form").submit();
-            }
-        }
     });
     $(document).ready(function () {
         $(".menuitem").removeClass("active");
-        $(".menugoods").addClass("active");
-        //分页
-        $('.sui-pagination').pagination({
-            pages: <?php echo $lastpage; ?>,
-            styleClass: ['pagination-small'],
-            showCtrl: true,
-            remote: true,
-            currentPage: <?php echo $currentPage; ?>,
-            displayPage: 10,
-            onSelect: function (num) {
-                $("#page").val(num);
-                $("form").submit();
-            }
-        });
-        $(".checkall").change(function () {
-            if ($(this).prop("checked")) {
-                $("tbody input[type=checkbox]").prop("checked", true);
-            } else {
-                $("tbody input[type=checkbox]").prop("checked", false);
-            }
-        });
-    });
-
-    function unit_delete(id) {
-        var url = "<?php echo url('unit_delete'); ?>";
-        //询问框
-        layer.confirm('是否删除？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post(url, {id:id}, function (a) {
-                if(a.code == 0){
-                    layer.msg(a.msg, {icon: 2})
-                }else{
-                    handleAjax(a);
-                }
-            });
-        }, function(){
-            layer.close();
-        });
-
-    }
-    function unit_setstatus(status) {
-        var ids = Array();
-        $('input[name="checkbox"]:checked').each(function(){
-            ids.push($(this).val());
-        });
-        console.log(ids);
-        var url = "<?php echo url('unit_setstatus'); ?>";
-
-        //询问框
-        layer.confirm('是否操作？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post(url, {ids:ids,status:status}, function (a) {
-                if(a.code == 0){
-                    layer.msg(a.msg, {icon: 2})
-                }else{
-                    handleAjax(a);
-                }
-            });
-        }, function(){
-            layer.close();
-        });
-
-    }
+        $(".settings").addClass("active");
+    })
 </script>

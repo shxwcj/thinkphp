@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:97:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\system\admin_group_add.html";i:1489983989;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:91:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\cms\article_edit.html";i:1484531209;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;s:44:"../application/admin/view/public/editor.html";i:1482229439;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -231,34 +231,6 @@
         }
     </style>
 </head>
-<style>
-    .set-table {
-        border-collapse: collapse;
-    }
-
-    .set-table tr {
-    }
-
-    .set-table tr td {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #efefef;
-    }
-
-    .set-table .set-cols1 {
-        width: 70px;
-        text-align: right;
-        vertical-align: top;
-    }
-
-    .set-table .set-cols2 {
-    }
-
-    .set-table .set-cols2 label {
-        display: inline-block;
-        margin-bottom: 6px;
-    }
-</style>
 <body>
 <div class="sui-layout">
     <header class="sui-navbar navbar-fixed-top">
@@ -286,49 +258,128 @@
     <div class="main-t">
         <div class="sidebar">
             <ul class="sui-nav nav-list nav-large">
-                <li><a href="<?php echo url('system/admin_user'); ?>">管理员管理</a></li>
-                <li class="active"><a href="<?php echo url('system/admin_group'); ?>">权限组管理<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
-                <li><a href="<?php echo url('system/sharefee'); ?>">佣金设置</a></li>
+                <li class="active"><a href="<?php echo url('cms/index'); ?>">列表<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+                <li><a href="<?php echo url('cms/cate_list'); ?>">分类</a></li>
             </ul>
         </div>
-        <div class="content" id="app" v-cloak>
+        <div class="content">
             <!--begin breadcrumb-->
             <div class="breadcrumb">
                 <ul class="sui-breadcrumb breadcrumb-dark">
                     <li><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                    <li><a href="<?php echo url('system/index'); ?>">设置</a></li>
-                    <li class="active">用户组添加</li>
+                    <li><a href="<?php echo url('cms/index'); ?>">CMS管理</a></li>
+                    <li class="active">编辑内容</li>
                 </ul>
             </div>
             <!--end breadcrumb-->
             <div class="bs-form">
-                <div class="r-title">部门信息</div>
-                <form class="sui-form form-horizontal queryForm ajax-form" action="<?php echo url('admin_group_add'); ?>" method="post">
+                <div class="r-title">添加内容</div>
+                <form class="sui-form form-horizontal queryForm ajax-form" action="<?php echo url('article_edit'); ?>" method="post">
+                    <input type="hidden"  name="id" value="<?php echo $id; ?>"/>
                     <div class="control-group">
-                        <label for="cate_name" class="control-label">部门名称：</label>
+                        <label for="cate_name" class="control-label">标题：</label>
                         <div class="controls">
-                            <input type="text" id="cate_name" v-model="title" data-rules="required|minlength=2|maxlength=50"/>
+                            <input type="text" id="cate_name" name="title" value="<?php echo $info['title']; ?>" data-rules="required|minlength=2|maxlength=50"/>
                         </div>
-                    </div>
-                    <div class="r-title">系统权限设置</div>
-                    <div class="control-group">
-                        <table class="set-table">
-                            <tr v-for="(index,vo) in list">
-                                <td class="set-cols1">{{vo.name}}：</td>
-                                <td class="set-cols2">
-                                    <label data-toggle="checkbox" class="checkbox-pretty-new" v-for="(index2,vo2) in vo.list">
-                                        <input type="checkbox"  class="ml15" value="{{vo2.status}}" v-model="vo2.status">
-                                        <span class="ml10">{{vo2.name}}</span>
-                                    </label>
-                                </td>
-                            </tr>
-                        </table>
                     </div>
 
                     <div class="control-group">
+                        <label class="control-label">内容分类：</label>
+                        <div class="controls">
+                            <span class="sui-dropdown dropdown-bordered select">
+                                <span class="dropdown-inner">
+                                    <?php if($pid > 0): ?>
+                                        <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                            <input name="cate_id" value="<?php echo $pid; ?>" type="hidden" data-rules="required">
+                                            <i class="caret"></i>
+                                            <span><?php echo $pname; ?></span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                            <input name="cate_id" type="hidden" data-rules="required">
+                                            <i class="caret"></i>
+                                            <span>请选择</span>
+                                        </a>
+                                    <?php endif; ?>
+
+                                    <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
+                                        <?php if(is_array($plist) || $plist instanceof \think\Collection): $i = 0; $__LIST__ = $plist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                             <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="javascript:void(0);" value="<?php echo $vo['id']; ?>"><?php echo $vo['cate_name']; ?></a>
+                                             </li>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="sort" class="control-label">排序：</label>
+                        <div class="controls">
+                            <input type="number" id="sort" name="sort" value="<?php echo $info['sort']; ?>"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="sort" class="control-label">正文内容：</label>
+                        <div class="control-group">
+<!--    <label for="editor" class="control-label">[label]：</label>-->
+    <div class="controls">
+        <script id="editor" type="text/plain" name="editor" style="width:600px;height:200px;"><?php if(isset($editor)): ?><?php echo $editor; endif; ?></script>
+    </div>
+</div>
+<script type="text/javascript" src="STATIC_PATH/plugins/editor/ueditor.config.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/editor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，
+        // 直接调用UE.getEditor('editor')就能拿到相关的实例
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+                return '/admin/uploader/upload';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        };
+        var ue = UE.getEditor('editor', {
+            toolbars: [
+                [
+                    'source', //源代码
+                    'bold', //加粗
+                    'indent', //首行缩进
+                    'pasteplain', //纯文本粘贴模式
+                    'horizontal', //分隔线
+                    'removeformat', //清除格式
+                    'insertcode', //代码语言
+                    'fontfamily', //字体
+                    'fontsize', //字号
+                    'paragraph', //段落格式
+                    'map', //Baidu地图
+                    'justifyleft', //居左对齐
+                    'justifyright', //居右对齐
+                    'justifycenter', //居中对齐
+                    'justifyjustify', //两端对齐
+                    'forecolor', //字体颜色
+                    'lineheight', //行间距
+                    'simpleupload' //单图上传
+                ]
+            ],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
+    });
+    function get_editor_content() {
+        var arr = [];
+        arr.push(UE.getEditor('editor').getContent());
+        return arr.join("\n");
+    }
+</script>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label"></label>
                         <div class="controls">
-                            <a href="javascript:void(0);" class="sui-btn btn-primary" @click="admin_group_add()">提交</a>
+                            <button type="submit" class="sui-btn btn-primary">提交</button>
                             <a href="javascript:void(0);" class="sui-btn" onclick="javascript :history.back(-1);">返回</a>
                         </div>
                     </div>
@@ -339,39 +390,9 @@
 </div>
 </body>
 </html>
-<script>
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            title: '',
-            list: <?php echo $list; ?>,
-        },
-        methods: {
-            admin_group_add: function () {
-                if(!vm.title){
-                    alert('请填写部门信息');
-                    return false;
-                }
-                var url = "<?php echo url('admin_group_add'); ?>";
-                $.post(url, {
-                    title: vm.title,
-                    list: JSON.stringify(vm.list),
-                }, function (a) {
-                    handleAjax(a);
-                });
-            }
-        },
-    	watch: {
-    		c: {
-    		  handler: function (val, oldVal) {
-
-    		  },
-    		  deep: true
-    		}
-    	}
-    });
+<script type="text/javascript">
     $(document).ready(function () {
         $(".menuitem").removeClass("active");
-        $(".settings").addClass("active");
+        $(".cms").addClass("active");
     });
 </script>

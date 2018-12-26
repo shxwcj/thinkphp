@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"C:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\index\index.html";i:1545551498;s:86:"C:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1545551498;s:88:"C:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1545551498;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\order\index.html";i:1489984217;s:86:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\head.html";i:1484792114;s:88:"D:\phpStudy\PHPTutorial\WWW\thinkphp\public/../application/admin\view\public\navbar.html";i:1489979851;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -231,97 +231,6 @@
         }
     </style>
 </head>
-<style>
-    .u-header-box {
-        position: relative;
-        border: 1px solid #e6e6e6;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .u-header-box p {
-        margin-bottom: 5px;
-    }
-
-    .u-header-box .name {
-        font-size: 18px;
-    }
-
-    .u-header-box .sui-text-warning {
-        font-size: 14px;
-    }
-
-    .u-header-box .time {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-    }
-
-    .u-total-box {
-        margin-bottom: 10px;
-    }
-
-    .u-total-box .total-ul {
-        list-style: none;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .u-total-box .total-ul li {
-        width: 19%;
-        position: relative;
-        padding-bottom: 20px;
-        margin-right: 1%;
-        background: #efefef;
-        text-align: center;
-    }
-
-    .u-total-box .total-ul li .tit {
-        padding-top: 20px;
-        margin: 0px;
-    }
-
-    .u-total-box .total-ul li .price {
-        padding-top: 6px;
-        font-size: 16px;
-        color: #FF6600;
-        margin: 0px;
-    }
-
-    .u-total-box .total-ul li .new-tip {
-        padding-top: 10px;
-        border-top: 1px solid #ececec;
-        width: 85%;
-        margin: 15px auto 0px auto;
-    }
-
-    .u-total-box .total-ul li .new-tip .sum {
-        color: #FF6600;
-    }
-
-    .fl {
-        float: left;
-    }
-
-    .fr {
-        float: right;
-    }
-
-    .mr0 {
-        margin-right: 0px;
-    }
-
-    .sui-layout .content {
-        margin-left: 0px !important;
-    }
-
-    .ph-tit {
-        color: #FF6600;
-        font-size: 14px;
-        border-bottom: 1px solid #ececec;
-        font-weight: normal;
-    }
-</style>
 <body>
 <div class="sui-layout">
     <header class="sui-navbar navbar-fixed-top">
@@ -345,102 +254,121 @@
         </ul>
     </div>
 </header>
-    <div class="main-t" id="app">
+    <!--start 右侧-->
+    <div class="main-t" id="app" v-cloak>
+        <div class="sidebar">
+            <ul class="sui-nav nav-list nav-large">
+                <li class="active"><a>所有订单<i class="sui-icon icon-tb-right pull-right mt3"></i></a></li>
+            </ul>
+        </div>
         <div class="content">
+            <!--begin breadcrumb-->
             <div class="breadcrumb">
                 <ul class="sui-breadcrumb breadcrumb-dark">
-                    <li><a href="/admin/index/index">首页</a></li>
-                    <li class="active">工作台</li>
+                    <li><a href="<?php echo url('index/index'); ?>">首页</a></li>
+                    <li><a href="<?php echo url('order/index'); ?>">订单</a></li>
+                    <li class="active">所有订单</li>
                 </ul>
             </div>
-            <div class="u-total-box">
-                <ul class="total-ul clearfix">
-                    <li class="fl" style="background: rgba(216, 240, 251, 0.47);">
-                        <p class="tit">订单总计</p>
-                        <p class="price sui-text-warning"><?php echo $order_sum; ?></p>
-                        <p class="new-tip">今日新增 <a href="<?php echo url('order/index'); ?>" class="sum"><?php echo $order_sum2; ?>>></a></p>
-                    </li>
-                    <li class="fl" style=" background: rgba(243, 241, 222, 0.21);">
-                        <p class="tit">在售商品</p>
-                        <p class="price sui-text-warning"><?php echo $goods_sum; ?></p>
-                        <p class="new-tip">今日新增 <a href="<?php echo url('goods/index'); ?>" class="sum"><?php echo $goods_sum2; ?>>></a></p>
-                    </li>
+            <!--end breadcrumb-->
+            <form class="sui-form form-horizontal" action="<?php echo url('index'); ?>" method="get">
+                <input type="hidden" id="page" name="page" value="<?php echo $currentPage; ?>">
+                <div class="control-group">
+                    <span>筛选内容：</span>
+                    <input type="text" name="queryText" class="input-medium input-large ml20" placeholder="请输入订单号" v-model="queryText">
+                    <a class="queryBtn sui-btn btn-primary ml15" v-on:click="search()">筛选</a>
+                </div>
+                <table class="set-table">
+                    <tr class="noline">
+                        <td class="set-cols1 text-l w82">订单状态：</td>
+                        <td class="set-cols2">
+                            <label data-toggle="checkbox" class="checkbox-pretty-new mr15">
+                                <input type="checkbox" name="status[]" value="0" v-model="status"><span class="ml10">待付款</span>
+                            </label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new mr15">
+                                <input type="checkbox" name="status[]"  value="1" v-model="status" ><span class="ml10">代发货</span>
+                            </label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new mr15">
+                                <input type="checkbox" name="status[]"  value="2" v-model="status"><span class="ml10">已完成</span>
+                            </label>
+                            <label data-toggle="checkbox" class="checkbox-pretty-new mr15">
+                                <input type="checkbox" name="status[]"  value="3" v-model="status"><span class="ml10">已取消</span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </form>
 
-                    <li class="fl" style="background:rgba(73, 84, 230, 0.14);">
-                        <p class="tit">分销商</p>
-                        <p class="price sui-text-warning"><?php echo $member_sum; ?></p>
-                        <p class="new-tip">今日新增 <a href="<?php echo url('drp/index'); ?>" class="sum"><?php echo $member_sum2; ?>>></a></p>
-                    </li>
-
-                </ul>
-            </div>
-            <!--
-            <table class="sui-table">
+            <table class="sui-table table-bordered table-hover">
+                <thead>
                 <tr>
-                    <td>
-                        <h3 class="ph-tit">商品销量Top10</h3>
-                        <table class="sui-table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>商品名称</th>
-                                <th>规格</th>
-                                <th>销量</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>D20161005-452011</td>
-                                <td>2016-10-05 14:07</td>
-                                <td>心花怒放 18411002140</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <h3 class="ph-tit">代理业绩Top10</h3>
-                        <table class="sui-table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>代理商</th>
-                                <th>销售额</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>D20161005-452011</td>
-                                <td>2016-10-05 14:07</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <h3 class="ph-tit">分销佣金Top10</h3>
-                        <table class="sui-table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>分销商</th>
-                                <th>佣金</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>D20161005-452011</td>
-                                <td>2016-10-05 14:07</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
+                    <th>订单号</th>
+
+                    <th>客户</th>
+                    <th>金额</th>
+                    <th>状态</th>
+                    <th>配送要求</th>
+                    <th>下单时间</th>
+                    <th width="10%" class="center">操作</th>
                 </tr>
+                </thead>
+                <tbody>
+                <?php if(is_array($list) || $list instanceof \think\Collection): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <tr>
+                        <td><?php echo $vo['order_sn']; ?></td>
+
+                        <td>心花怒放 18411002140</td>
+                        <td>￥<?php echo $vo['order_total']; ?></td>
+                        <td>
+                            <?php switch($vo['status']): case "0": ?><span class="sui-text-danger">待付款</span><?php break; case "1": ?><span class="sui-text-info">支付完成，待发货</span><?php break; case "2": ?><span class="sui-text-success">已完成</span><?php break; case "3": ?><span class="sui-text-">已取消</span><?php break; endswitch; ?>
+                        </td>
+                        <td><?php echo get_posname($vo['pos_province']); ?> <?php echo get_posname($vo['pos_city']); ?> <?php echo get_posname($vo['pos_district']); ?></td>
+                        <td><?php echo date("Y-m-d H:m:s",$vo['create_time']); ?></td>
+                        <td class="center">
+                            <a href="" class="btn-link">详情</a>
+                        </td>
+                    </tr>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
+                </tbody>
             </table>
-            -->
+
+            <!-- 分页 -->
+            <div class="sui-pagination pagination-small pull-right"></div>
         </div>
     </div>
 </div>
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function () {
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            queryText: "<?php echo $queryText; ?>",
+            status: <?php echo $status; ?>,
+        },
+        methods: {
+            search: function() {
+                $("#page").val(0);
+                $("form").submit();
+            }
+        }
+    });
+    $(document).ready(function() {
         $(".menuitem").removeClass("active");
-        $(".menuworkbench").addClass("active");
+        $(".menuorder").addClass("active");
+
+        //分页
+        $('.sui-pagination').pagination({
+            pages: <?php echo $lastpage; ?>,
+            styleClass: ['pagination-small'],
+            showCtrl: true,
+            remote: true,
+            currentPage: <?php echo $currentPage; ?>,
+            displayPage: 10,
+            onSelect: function(num) {
+                $("#page").val(num);
+                $("form").submit();
+            }
+        });
     });
 </script>
