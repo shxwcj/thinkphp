@@ -1,0 +1,4 @@
+执行日期：20181229124637
+partner="2088411441452114"&seller_id="13058185654"&out_trade_no="2018122739883"&subject="订单支付"&body="订单支付"&total_fee="16976"&notify_url="http://shop.test/index.php/app/order/alipay_notify_url"&service="mobile.securitypay.pay"&payment_type="1"&_input_charset="utf_8"
+执行日期：20181229125135
+partner="2088411441452114"&seller_id="13058185654"&out_trade_no="2018122739883"&subject="订单支付"&body="订单支付"&total_fee="16976"&notify_url="http://shop.test/index.php/app/order/alipay_notify_url"&service="mobile.securitypay.pay"&payment_type="1"&_input_charset="utf_8"

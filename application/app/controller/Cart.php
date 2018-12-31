@@ -159,9 +159,27 @@ class Cart extends Base
         }
     }
 
+    /**
+     *购物车全选，全不选，设置购物车清单选中状态
+     * @author wangchunjing
+     * return array|false|string
+     */
+
+    public function choose()
+    {
+       $mid = $this->is_login();
+       $status = intval(input("request.status")) ? 1 :0;
+
+       if(Db::name('goods_cart')->where('mid',$mid)->setField('status',$status)){
+           if(Db::name('goods_cart')->where('mid',$mid)->value('status') == 1){
+               return ajaxmsg('已选中 请去结算',1);
+           }else{
+               return ajaxmsg('未选状态',0);
+           }
+       }
 
 
-
+    }
 
 
 

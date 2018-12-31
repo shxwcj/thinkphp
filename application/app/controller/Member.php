@@ -16,7 +16,6 @@ class Member extends Base
     /**
      * 用户注册
      * @author wangchunjing
-     *
      */
     public function register()
     {
