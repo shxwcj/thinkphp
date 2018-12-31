@@ -14,7 +14,7 @@ use think\Request;
 class Member extends Base
 {
     /**
-     * 用户注册
+     * @desc 用户注册
      * @author wangchunjing
      */
     public function register()
@@ -32,12 +32,22 @@ class Member extends Base
         {
             return ajaxmsg("手机号不能为空", 0);
         }
+        if (!input("request.password"))
+        {
+            return ajaxmsg("请输入密码", 0);
+        }
         $deviceid = input("request.deviceid",'wap');
         $data['mobile'] = input("request.mobile");
         $data['username'] = '游客' .  $data['mobile'];
         $data['password'] = md5(trim(input("request.password")));
         $data['create_time'] = time();
         $data['pid'] = input("request.pid",0);
+
+        $mobile = Db::name('member')->value('mobile');
+        if($data['mobile'] == $mobile){
+            return ajaxmsg('该手机号已注册过',0);
+        }
+
         $mid = Db::name('member')->insertGetId($data);
         if ($mid > 0)
         {
@@ -62,7 +72,7 @@ class Member extends Base
     }
 
     /**
-     * 短信验证码接口
+     * @desc 短信验证码接口
      * @author wangchunjing
      */
 
@@ -101,7 +111,7 @@ class Member extends Base
     }
 
     /**
-     * 用户登录
+     * @desc 用户登录
      * @author wangchunjing
      */
     public function login()
@@ -148,7 +158,7 @@ class Member extends Base
 
 
     /**
-     * 重置密码
+     * @desc 重置密码
      * @author wangchunjing
      */
 
@@ -175,7 +185,7 @@ class Member extends Base
     }
 
     /**
-     * 找回密码
+     * @desc 找回密码
      * @author wangchunjing
      */
 
@@ -192,7 +202,7 @@ class Member extends Base
     }
 
     /**
-     * 修改密码
+     * @desc 修改密码
      * @author wangchunjing
      */
 
@@ -209,12 +219,51 @@ class Member extends Base
         }
     }
 
+    /**
+     * @desc 个人中心
+     * @author wangchunjing
+     */
 
+    public function user_center()
+    {
+        $mid = $this->is_login();
 
+        $member = Db::name('member')->where('id',$mid)->where('status',1)->find();
+        /*代理区域数量*/
+        //$member['area_agent_count'] = Db::name('area_agent')->where('mid',$mid)->where('status',1)->count('id');
+        /*业务员ID*/
+        //$member['area_deliveryman_id'] = Db::name('area_deliveryman')->where('mid',$mid)->where('status',1)->value('id');
+        /*待付款*/
+        $member['order_count0'] = Db::name('order')->where('mid',$mid)->where('status',0)->count('id')?:'暂无待付款订单';
+        /*待收货*/
+        $member['order_count1'] = Db::name('order')->where('mid',$mid)->where('status',1)->count('id')?:'暂无待收货订单';
 
+        return ajaxmsg('用户中心',1,$member);
+    }
 
+    /**
+     * @desc 修改用户名
+     * @author wangchunjing
+     */
 
+     public function update_username()
+    {
+        $mid = $this->is_login();
+        $username = input("request.username");
+        if(! $username){
+            return ajaxmsg('请输入用户名',0);
+        }
+        if(Db::name('member')->where('id',$mid)->where('username',$username)->find()){
+            return ajaxmsg('用户名被占用',0);
+        }else{
+            if(Db::name('member')->where('id',$mid)->update(array('username'=>$username))){
+                return ajaxmsg('用户名已修改',1);
+            }else{
+                return ajaxmsg('用户名修改失败',0);
+            }
 
+        }
+    }
 
 
 

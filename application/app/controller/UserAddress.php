@@ -21,10 +21,11 @@ class Useraddress extends Base
     public function list_address()
     {
         $mid =$this->is_login();
-        if($res = Db::name("member_address")->where('mid',$mid)->where('status',1)->select())
-            return ajaxmsg('',1,$res);
-
-            return ajaxmsg('非法操作',0);
+        if($res = Db::name("member_address")->where('mid',$mid)->where('status',1)->select()){
+            return ajaxmsg('地址列表',1,$res);
+        }else{
+            return ajaxmsg('您还没有地址，请去添加',0);
+        }
     }
 
     /**
@@ -36,13 +37,13 @@ class Useraddress extends Base
     public function add_address()
     {
         $mid = $this->is_login();
-        $name = input("request.name");  //联系人姓名
-        $mobile = input("request.mobile"); //联系人手机号
-        $pos_province = input("request.pos_province"); //省
+        $name = input("request.name");                  //联系人姓名
+        $mobile = input("request.mobile");              //联系人手机号
+        $pos_province = input("request.pos_province");  //省
         $pos_city = input("request.pos_city");          //市区
-        $pos_district = input("request.pos_district");   //区
+        $pos_district = input("request.pos_district");  //区
         $pos_name = $pos_province.$pos_city.$pos_district;   //省市区
-        $address_info = input("request.address_info");   //具体地址
+        $address_info = input("request.address_info");  //具体地址
 
        if (!$name){
             return ajaxmsg('请填写联系人',0);

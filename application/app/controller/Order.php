@@ -64,8 +64,9 @@ class Order extends Base
         return ajaxmsg('订单已确认，请结算',1,$data);
     }
 
-    /*运费计算 $trans_type:1,通用，2：仓库配送，3：物流配送
-     return array();
+    /*
+     * @desc 运费计算 $trans_type:1,通用，2：仓库配送，3：物流配送
+     * return array();
    */
 
     function transport_count($mid,$total_sum,$trans_type = 1)
@@ -227,14 +228,17 @@ class Order extends Base
         if($goods_sum == 0){
             return ajaxmsg('重复下单',1);
         }
-
+        /*运费计算*/
+        $transport_count = $this->transport_count($mid,$goods_sum,$trans_type);
+        $trans_price = $transport_count['trans_price'];
         $order_sn = create_order_sn();
 
         /*订单数据*/
         $data['mid'] = $mid;
-        $data['order_total'] = $total_price;
+        $data['order_total'] = $total_price + $trans_price;
         $data['total_price'] = $total_price;
         $data['goods_sum'] = $goods_sum;
+        $data['trans_price'] = $trans_price;
         $data['trans_type'] = $trans_type;
         $data['order_sn'] = $order_sn;
         $data['name'] = $address_info['name'];
@@ -245,7 +249,7 @@ class Order extends Base
         $data['address_info'] = $address_info['address_info'];
         $data['content'] = $content;
         $data['create_time'] = time();
-
+        $data['store_id'] = $transport_count['store_id'];//发送仓库ID
         $order_id = Db::name('order')->insertGetId($data);//生成订单
         $order_goods = array();
         $order_goods_Array = array();
@@ -272,7 +276,7 @@ class Order extends Base
         }
         /*从购物车中批量删除*/
         Db::name('goods_cart')->delete($ids);
-        $arr['order_total'] = $total_price;
+        $arr['order_total'] = $total_price + $trans_price;
         $arr['order_sn'] = $order_sn;
         $arr['order_id'] = $order_id;
 
@@ -409,7 +413,7 @@ class Order extends Base
     }
 
     /**
-     *支付宝支付通知
+     * @desc 支付宝支付通知
      * @author wangchunjing
      * return array|false|string
      */
@@ -463,7 +467,7 @@ class Order extends Base
     }
 
     /**
-     *微信支付 统一下单
+     * @desc 微信支付 统一下单
      * @author wangchunjing
      * return array|false|string
      */
@@ -559,7 +563,7 @@ class Order extends Base
 
     /**
      *
-     * 产生随机字符串，不长于32位
+     * @desc 产生随机字符串，不长于32位
      * @param int $length
      * @return 产生的随机字符串
      */
@@ -593,7 +597,7 @@ class Order extends Base
     }
 
     /**
-     分销清算：分销商（上线），代理商资金清算，走订单清算
+     * @desc 分销清算：分销商（上线），代理商资金清算，走订单清算
      * $type=1,订单完成分销清算，$type=2,退回订单，分销清算
      */
 
