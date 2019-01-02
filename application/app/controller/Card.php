@@ -115,12 +115,13 @@ class Card extends Base
      * $idNo 身份证号码
      * @author wangchunjing
      */
+
     public function check($cardNo,$phoneNo,$name,$idNo)
     {
         $host = "https://yunyidata.market.alicloudapi.com";
         $path = "/bankAuthenticate4";
         $method = "POST";
-        $appcode = "63e7105a6f614338ba5b7eb983cdad19";
+        $appcode = "e21e6c0c2285479099652d2a12d4b620";
         $headers = array();
         array_push($headers, "Authorization:APPCODE " . $appcode);
         //根据API的要求，定义相对应的Content-Type
@@ -146,6 +147,123 @@ class Card extends Base
 
     }
 
+    /**
+     * @desc 提现
+     *
+     * @author wangchunjing
+     */
+
+    public function withdraw_before()
+    {
+        $mid = $this->is_login();
+        $member_info = Db::name('member')->where('id',$mid)->find();
+        $member_info['withdrawrate'] = Db::name('admin_config')->where('name','withdrawrate')->value('value');
+        $member_info['minwithdraw'] = Db::name('admin_config')->where('name','minwithdraw')->value('value');
+        $member_info['maxwithdraw'] = Db::name('admin_config')->where('name','maxwithdraw')->value('value');
+        return ajaxmsg('提现金额',1,$member_info);
+    }
+
+    /**
+     * @desc 提现操作
+     * @author wangchunjing
+     */
+
+    public function withdraw_after()
+    {
+        $mid = $this->is_login();
+        $member_info = Db::name('member')->where('id',$mid)->find();
+        $money = input("request.money",0);
+        if($money > $member_info['money']){
+            return ajaxmsg('提现金额不能多余账户金额',0);
+        }
+        if(intval($money) <= 0){
+            return ajaxmsg('金额不能为负数',0);
+        }
+        $withdrawrate = Db::name('admin_config')->where('name','withdrawrate')->value('value');
+        /*添加提现记录*/
+        $withdraw_id = Db::name('member_withdraw')->insert(array(
+            'mid'   =>  $mid,
+            'money' =>  $money,
+            'recevie_money' =>  $money - (ceil(($money*$withdrawrate)/100)), //实际到账金额
+            'create_time'   =>  time(),
+        ));
+        if($withdraw_id){
+           Db::name('member')->where('id',$mid)->setField('money',$member_info['money']-$money);
+           $res = Db::name('member_withdraw')->where('mid',$mid)->find();
+           return ajaxmsg('提交成功',1,$res);
+        }else{
+            return ajaxmsg('提交失败',0);
+        }
+    }
+
+    /**
+     * @desc 删除提现记录
+     * @author wangchunjing
+     */
+
+    public function member_withdraw_delete()
+    {
+        $mid = $this->is_login();
+        $id = input("request.id");
+        if(! $id){
+            return ajaxmsg('请选择要删除的记录',0);
+        }
+        if(Db::name('member_withdraw')->where('mid',$mid)->where('id',$id)->find()){
+            if(Db::name('member_withdraw')->where('mid',$mid)->where('id',$id)->delete()){
+                return ajaxmsg('删除成功',1);
+            }else{
+                return ajaxmsg('删除失败',0);
+            }
+        }else{
+            return ajaxmsg('不存在此条记录',0);
+        }
+
+    }
+
+    /**
+     * @desc 我的钱包
+     * @author wangchunjing
+     */
+
+    public function my_wallet()
+    {
+        $mid = $this->is_login();
+        $data['member_info'] = Db::name('member')->where('id',$mid)->find();
+        $res = Db::name('member_withdraw')->where('mid',$mid)->order('id','desc')->paginate(10)->toArray();
+        $data['total'] = $res['total'];
+        $data['per_page'] = $res['per_page'];
+        $data['current_page'] = $res['current_page'];
+        $data['list'] = $res['data'];
+        return ajaxmsg('我的钱包',1,$data);
+    }
+
+    /**
+     * @desc 分佣记录
+     * @author wangchunjing
+     */
+
+    public function withdraw_order_list()
+    {
+        $type = input("request.type");
+        if(! $type || intval($type) <= 0){
+            return ajaxmsg('分佣类型不能为空或为负数',0);
+        }
+        /*区域代理id*/
+        $map['a.area_agent_id'] = array('eq',$type);
+
+        $mid = $this->is_login();
+        if(Db::name('order_fenxiao')->where('from_mid',$mid)->where('area_agent_id',$type)->find()){
+            $res = Db::name('order_fenxiao a')
+                ->join('member b','a.from_mid = b.id')
+                ->field('a.*,b.mobile')
+                ->where($map)
+                ->paginate(10)
+                ->toArray();
+            return ajaxmsg('分佣记录',1,$res);
+        }else{
+            return ajaxmsg('该用户不存在此类型的分佣记录',0);
+        }
 
 
+    }
 }

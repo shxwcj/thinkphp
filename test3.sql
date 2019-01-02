@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
+Source Server         : localhost_3306
 Source Server Version : 50553
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : test3
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-02-21 20:19:15
+Date: 2019-01-02 12:40:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `oc_admin_access`
+-- Table structure for oc_admin_access
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_admin_access`;
 CREATE TABLE `oc_admin_access` (
@@ -37,7 +37,26 @@ INSERT INTO `oc_admin_access` VALUES ('1', '1', '1', '1438651748', '1438651748',
 INSERT INTO `oc_admin_access` VALUES ('8', '10', '6', '1487679252', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_admin_group`
+-- Table structure for oc_admin_config
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_admin_config`;
+CREATE TABLE `oc_admin_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(31) NOT NULL COMMENT '免运费',
+  `value` varchar(12) NOT NULL DEFAULT '0' COMMENT '运费',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of oc_admin_config
+-- ----------------------------
+INSERT INTO `oc_admin_config` VALUES ('1', 'freecharge', '0');
+INSERT INTO `oc_admin_config` VALUES ('2', 'withdrawrate', '25');
+INSERT INTO `oc_admin_config` VALUES ('3', 'minwithdraw', '35');
+INSERT INTO `oc_admin_config` VALUES ('4', 'maxwithdraw', '65');
+
+-- ----------------------------
+-- Table structure for oc_admin_group
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_admin_group`;
 CREATE TABLE `oc_admin_group` (
@@ -60,7 +79,7 @@ INSERT INTO `oc_admin_group` VALUES ('1', '0', '超级管理员', '', '', '14268
 INSERT INTO `oc_admin_group` VALUES ('6', '0', '财务组', '', '[{\"name\":\"系统设置\",\"act\":\"system\",\"list\":[{\"name\":\"管理员列表\",\"url\":\"admin/system/admin_user\",\"status\":0},{\"name\":\"管理员添加\",\"url\":\"admin/system/admin_user_add\",\"status\":0},{\"name\":\"管理员编辑\",\"url\":\"admin/system/admin_user_edit\",\"status\":0},{\"name\":\"管理员删除\",\"url\":\"admin/system/admin_user_delete\",\"status\":0},{\"name\":\"管理员设置\",\"url\":\"admin/system/admin_user_setstatus\",\"status\":0},{\"name\":\"用户组列表\",\"url\":\"admin/system/admin_group\",\"status\":0},{\"name\":\"用户组添加\",\"url\":\"admin/system/admin_group_add\",\"status\":0},{\"name\":\"用户组编辑\",\"url\":\"admin/system/admin_group_edit\",\"status\":0},{\"name\":\"用户组删除\",\"url\":\"admin/system/admin_group_delete\",\"status\":0},{\"name\":\"用户组设置\",\"url\":\"admin/system/admin_group_setstatus\",\"status\":0}]},{\"name\":\"商品管理\",\"act\":\"goods\",\"list\":[{\"name\":\"商品列表\",\"url\":\"admin/goods/index\",\"status\":true},{\"name\":\"商品添加\",\"url\":\"admin/goods/goods_add\",\"status\":true},{\"name\":\"商品编辑\",\"url\":\"admin/goods/goods_edit\",\"status\":true},{\"name\":\"商品分类\",\"url\":\"admin/goods/cate_list\",\"status\":true},{\"name\":\"分类添加\",\"url\":\"admin/goods/cate_add\",\"status\":true},{\"name\":\"分类编辑\",\"url\":\"admin/goods/cate_edit\",\"status\":true},{\"name\":\"分类删除\",\"url\":\"admin/goods/cate_delete\",\"status\":true},{\"name\":\"状态设置\",\"url\":\"admin/goods/cate_setstatus\",\"status\":true},{\"name\":\"商品推介\",\"url\":\"admin/goods/recommend_list\",\"status\":true},{\"name\":\"推介添加\",\"url\":\"admin/goods/recommend_add\",\"status\":true},{\"name\":\"推介编辑\",\"url\":\"admin/goods/recommend_edit\",\"status\":true},{\"name\":\"推介删除\",\"url\":\"admin/goods/recommend_delete\",\"status\":true},{\"name\":\"单位列表\",\"url\":\"admin/goods/unit_list\",\"status\":true},{\"name\":\"单位添加\",\"url\":\"admin/goods/unit_add\",\"status\":true},{\"name\":\"单位编辑\",\"url\":\"admin/goods/unit_edit\",\"status\":true},{\"name\":\"单位删除\",\"url\":\"admin/goods/unit_delete\",\"status\":true},{\"name\":\"设置状态\",\"url\":\"admin/goods/unit_setstatus\",\"status\":true}]},{\"name\":\"CMS管理\",\"act\":\"cms\",\"list\":[{\"name\":\"文章列表\",\"url\":\"admin/cms/index\",\"status\":true},{\"name\":\"文章添加\",\"url\":\"admin/cms/article_add\",\"status\":true},{\"name\":\"文章编辑\",\"url\":\"admin/cms/article_edit\",\"status\":true},{\"name\":\"批量删除\",\"url\":\"admin/cms/article_delete\",\"status\":true},{\"name\":\"单个删除\",\"url\":\"admin/cms/article_delete_one\",\"status\":true},{\"name\":\"分类列表\",\"url\":\"admin/cms/cate_list\",\"status\":true},{\"name\":\"分类添加\",\"url\":\"admin/cms/cate_add\",\"status\":true},{\"name\":\"分类编辑\",\"url\":\"admin/cms/cate_edit\",\"status\":true},{\"name\":\"分类删除\",\"url\":\"admin/cms/cate_delete\",\"status\":true},{\"name\":\"分类设置\",\"url\":\"admin/cms/cate_setstatus\",\"status\":true}]},{\"name\":\"订单管理\",\"act\":\"order\",\"list\":[{\"name\":\"订单列表\",\"url\":\"admin/order/index\",\"status\":0}]}]', '1487679135', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_admin_upload`
+-- Table structure for oc_admin_upload
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_admin_upload`;
 CREATE TABLE `oc_admin_upload` (
@@ -80,7 +99,7 @@ CREATE TABLE `oc_admin_upload` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=553 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
+) ENGINE=MyISAM AUTO_INCREMENT=570 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
 -- ----------------------------
 -- Records of oc_admin_upload
@@ -167,9 +186,23 @@ INSERT INTO `oc_admin_upload` VALUES ('549', '0', '7232a046bee799320f0d23db98a81
 INSERT INTO `oc_admin_upload` VALUES ('550', '0', '0ee6ae84ab8a07f42caff8e9f8e3e24c.png', '/uploads/20170204\\0ee6ae84ab8a07f42caff8e9f8e3e24c.jpg', 'http://oetqv9f47.bkt.clouddn.com/0ee6ae84ab8a07f42caff8e9f8e3e24c.png', 'jpg', '0', '2ad9e075a50237f98c514ba5944d104d', '2f2a352401cbd0b3fd715a6cb5273078', 'Qiniu', '0', '1486200817', '0', '0', '1');
 INSERT INTO `oc_admin_upload` VALUES ('551', '0', '30c7f3d895a2acbfecf00ca86dc9c295.png', '/uploads/20170204\\30c7f3d895a2acbfecf00ca86dc9c295.jpg', 'http://oetqv9f47.bkt.clouddn.com/30c7f3d895a2acbfecf00ca86dc9c295.png', 'jpg', '0', '9671114825510124bd2dbf0266d96037', '58d54e6d038e7bb47ff28c0caa869725', 'Qiniu', '0', '1486200817', '0', '0', '1');
 INSERT INTO `oc_admin_upload` VALUES ('552', '0', '4a335b51fd9782714c4f27275a8c8c15.png', '/uploads/20170204\\4a335b51fd9782714c4f27275a8c8c15.jpg', 'http://oetqv9f47.bkt.clouddn.com/4a335b51fd9782714c4f27275a8c8c15.png', 'jpg', '0', 'cd1cba7af87ac15fe0328cef1542e555', '7aea0e5fb1805dbcce1b9f9e2a99a5f9', 'Qiniu', '0', '1486200818', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('553', '0', '08cd79ff522766de8f321f6c614aacd2.png', '/uploads/20181221\\08cd79ff522766de8f321f6c614aacd2.jpg', 'http://oetqv9f47.bkt.clouddn.com/4a335b51fd9782714c4f27275a8c8c15.png', 'jpg', '0', '12cd0fa6e57c5c390ba1547644da62f7', 'e55642ce84e5b3e35f6409a0be9b683c', 'Qiniu', '0', '1545380757', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('559', '0', '19d846327fe3dd06c15790ebdb86208b.png', '/uploads/20181224\\19d846327fe3dd06c15790ebdb86208b.jpg', 'http://oetqv9f47.bkt.clouddn.com/19d846327fe3dd06c15790ebdb86208b.png', 'jpg', '0', 'f7682b1cd0605cac7771fe9997674c7b', 'eabe09729e14a8434398b884fff6485b', 'Qiniu', '0', '1545643684', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('556', '0', '1499fbd5bb3e7cadcb71e0e2a907682a.png', '/uploads/20181224\\1499fbd5bb3e7cadcb71e0e2a907682a.jpg', 'http://oetqv9f47.bkt.clouddn.com/1499fbd5bb3e7cadcb71e0e2a907682a.png', 'jpg', '0', '868e7c4e16aa512597f915fdd901b957', '92199e22c640fdc786c92b37f8243e88', 'Qiniu', '0', '1545643409', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('557', '0', '20000fe8fb38e29ed04eef3866bbbd1d.png', '/uploads/20181224\\20000fe8fb38e29ed04eef3866bbbd1d.jpg', 'http://oetqv9f47.bkt.clouddn.com/20000fe8fb38e29ed04eef3866bbbd1d.png', 'jpg', '0', '1379e9f9cfb5f9e2f45941150f2d50c5', '224258c0dbdac269741b328a8f28a9c7', 'Qiniu', '0', '1545643479', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('558', '0', '049c85705ac7ca885b46430e54b3421a.png', '/uploads/20181224\\049c85705ac7ca885b46430e54b3421a.jpg', 'http://oetqv9f47.bkt.clouddn.com/049c85705ac7ca885b46430e54b3421a.png', 'jpg', '0', 'fa30c3f57874437a4638077e630666a7', 'e2009389d4719d90d76264b08cad6081', 'Qiniu', '0', '1545643552', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('560', '0', '18d39230cdb5161511db53fc5879d6cc.png', '/uploads/20181224\\18d39230cdb5161511db53fc5879d6cc.jpg', 'http://oetqv9f47.bkt.clouddn.com/18d39230cdb5161511db53fc5879d6cc.png', 'jpg', '0', '27c7b80ed7275953ec14b99d7862211e', '140378a3536636a6d98a70c99b1e559a', 'Qiniu', '0', '1545643736', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('561', '0', '16267dddb7f7b7e07730b6d6a8dabfaf.png', '/uploads/20181225\\16267dddb7f7b7e07730b6d6a8dabfaf.jpg', 'http://oetqv9f47.bkt.clouddn.com/16267dddb7f7b7e07730b6d6a8dabfaf.png', 'jpg', '0', 'cd5e16dbd9718543b34efde26070cfe6', '0e5be6bb7152e2663950f2c77d5c4061', 'Qiniu', '0', '1545706411', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('563', '0', 'b8b769a0d445c8befe8c22d24b8b8541.png', '/uploads/20181225\\b8b769a0d445c8befe8c22d24b8b8541.jpg', 'http://oetqv9f47.bkt.clouddn.com/b8b769a0d445c8befe8c22d24b8b8541.png', 'jpg', '0', 'cde523947444dbcefec82a218a8c19b4', '1d08faa66b93d7e3bc183b0bdc48926e', 'Qiniu', '0', '1545706748', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('564', '0', 'ec9be21296b1c8b3ac6689b664b2af6d.png', '/uploads/20181225\\ec9be21296b1c8b3ac6689b664b2af6d.jpg', 'http://oetqv9f47.bkt.clouddn.com/ec9be21296b1c8b3ac6689b664b2af6d.png', 'jpg', '0', '3f2219ffdb5970e2ec6034531d66b84b', '7fd5d2a0f43e090123a51e41bda605a0', 'Qiniu', '0', '1545707338', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('565', '0', 'ad90ce5a9d6845801370f2c3cbab726d.png', '/uploads/20181225\\ad90ce5a9d6845801370f2c3cbab726d.jpg', 'http://oetqv9f47.bkt.clouddn.com/ad90ce5a9d6845801370f2c3cbab726d.png', 'jpg', '0', '3f2219ffdb5970e2ec6034531d66b84b', '7fd5d2a0f43e090123a51e41bda605a0', 'Qiniu', '0', '1545707348', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('566', '0', 'dd1682c3b3e1240a97a2a69337073ba1.png', '/uploads/20181225\\dd1682c3b3e1240a97a2a69337073ba1.jpg', 'http://oetqv9f47.bkt.clouddn.com/dd1682c3b3e1240a97a2a69337073ba1.png', 'jpg', '0', 'ba6b420343f865fafdfc7b6313f277b3', '28b5bda917e79fbd5667f21e4913c539', 'Qiniu', '0', '1545707357', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('567', '0', '16ee08f81cf09f6e46330154512ee595.png', '/uploads/20181225\\16ee08f81cf09f6e46330154512ee595.jpg', 'http://oetqv9f47.bkt.clouddn.com/16ee08f81cf09f6e46330154512ee595.png', 'jpg', '0', '5475dd18fc00430441ecb327c4679450', 'b7297decadfea655234db83668c702db', 'Qiniu', '0', '1545707367', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('568', '0', '7c1d30e4410f21f126310f879bc6d4fc.png', '/uploads/20181225\\7c1d30e4410f21f126310f879bc6d4fc.jpg', 'http://oetqv9f47.bkt.clouddn.com/7c1d30e4410f21f126310f879bc6d4fc.png', 'jpg', '0', '57fb12e66f1b5f39ca7e7ae04cb8f231', '441306794a1a14ab82a0cbdedf02c760', 'Qiniu', '0', '1545707379', '0', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('569', '0', '563a22b4e7c40c90280cd75b2b543d30.png', '/uploads/20181226\\563a22b4e7c40c90280cd75b2b543d30.jpg', 'http://oetqv9f47.bkt.clouddn.com/563a22b4e7c40c90280cd75b2b543d30.png', 'jpg', '0', '868e7c4e16aa512597f915fdd901b957', '92199e22c640fdc786c92b37f8243e88', 'Qiniu', '0', '1545827152', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_admin_user`
+-- Table structure for oc_admin_user
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_admin_user`;
 CREATE TABLE `oc_admin_user` (
@@ -202,7 +235,7 @@ INSERT INTO `oc_admin_user` VALUES ('1', '1', '超级管理员', 'admin', '21232
 INSERT INTO `oc_admin_user` VALUES ('10', '1', '张三', 'zhangsan', '25d55ad283aa400af464c76d713c07ad', '', '0', '13213125500', '1', '0', '0', '0.00', '0', '', '1487679252', '0', '1', '');
 
 -- ----------------------------
--- Table structure for `oc_app_ads`
+-- Table structure for oc_app_ads
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_app_ads`;
 CREATE TABLE `oc_app_ads` (
@@ -218,14 +251,18 @@ CREATE TABLE `oc_app_ads` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='App广告表';
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='App广告表';
 
 -- ----------------------------
 -- Records of oc_app_ads
 -- ----------------------------
+INSERT INTO `oc_app_ads` VALUES ('11', '', '', '1', '547', '', '1', '0', '0', '0', '1');
+INSERT INTO `oc_app_ads` VALUES ('12', '', '', '1', '548', '', '1', '0', '0', '0', '1');
+INSERT INTO `oc_app_ads` VALUES ('13', '', '', '1', '549', '', '1', '0', '0', '0', '1');
+INSERT INTO `oc_app_ads` VALUES ('14', '', '', '1', '550', '', '1', '0', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_area`
+-- Table structure for oc_area
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_area`;
 CREATE TABLE `oc_area` (
@@ -3789,7 +3826,45 @@ INSERT INTO `oc_area` VALUES ('710004', '花莲县', '3', '710003');
 INSERT INTO `oc_area` VALUES ('910006', '东莞市', '3', '441900');
 
 -- ----------------------------
--- Table structure for `oc_cms_article`
+-- Table structure for oc_area_agent
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_area_agent`;
+CREATE TABLE `oc_area_agent` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(11) NOT NULL COMMENT '当前用户id',
+  `pos_province` int(11) NOT NULL DEFAULT '0' COMMENT '省',
+  `pos_city` int(11) NOT NULL DEFAULT '0' COMMENT '市',
+  `pos_district` int(11) NOT NULL DEFAULT '0' COMMENT '区',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态,1：显示，0：隐藏',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of oc_area_agent
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oc_area_agent_order
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_area_agent_order`;
+CREATE TABLE `oc_area_agent_order` (
+  `id` int(11) NOT NULL,
+  `service_number` varchar(255) NOT NULL COMMENT '服务号',
+  `mid` int(11) NOT NULL COMMENT '用户id',
+  `aere_agent_id` int(11) NOT NULL COMMENT '区域id',
+  `order_id` int(11) NOT NULL COMMENT '订单id',
+  `order_sn` varchar(255) NOT NULL COMMENT '订单号',
+  `create_time` time DEFAULT NULL,
+  `update_time` time DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of oc_area_agent_order
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oc_cms_article
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_cms_article`;
 CREATE TABLE `oc_cms_article` (
@@ -3816,7 +3891,7 @@ INSERT INTO `oc_cms_article` VALUES ('2', '4', '为什么购物车中显示有�
 INSERT INTO `oc_cms_article` VALUES ('3', '4', '为什么参加', '', '<p>由京东快递发货的自营（非自提）订单，在订单打印之前可以修改，打开“订单详情”页面，点击右上角的“修改订单”即可，若没有修改订单按钮，则表示订单无法修改。</p><p>注：</p><p>1. 修改订单可能影响送货时间。</p><p>2. 修改时将以当前商品信息为准，修改时需要注意查看活动信息。</p><p>3. 由于订单生产速度快，可能出现修改不成功的情况。</p><p><br/></p>', '', '0', '1482310314', '1482738967', '0', '0', '0');
 
 -- ----------------------------
--- Table structure for `oc_cms_category`
+-- Table structure for oc_cms_category
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_cms_category`;
 CREATE TABLE `oc_cms_category` (
@@ -3838,7 +3913,7 @@ INSERT INTO `oc_cms_category` VALUES ('4', '0', '平台公告', '519', '14822028
 INSERT INTO `oc_cms_category` VALUES ('9', '0', '促销活动', '0', '1486197325', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_goods`
+-- Table structure for oc_goods
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods`;
 CREATE TABLE `oc_goods` (
@@ -3858,19 +3933,22 @@ CREATE TABLE `oc_goods` (
   `standard_value4` varchar(255) NOT NULL DEFAULT '' COMMENT '规格属性值四',
   `standard_value5` varchar(255) NOT NULL DEFAULT '' COMMENT '规格属性值五',
   `fenxiao_rate` decimal(12,2) DEFAULT NULL COMMENT '上级分佣比例',
-  `daili_rate` decimal(12,2) DEFAULT NULL COMMENT '代理佣金比例',
+  `daili_rate` decimal(12,2) NOT NULL COMMENT '代理佣金比例',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(2) unsigned DEFAULT '1' COMMENT '删除状态 1：未删除（默认）；0：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='商品表';
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of oc_goods
 -- ----------------------------
+INSERT INTO `oc_goods` VALUES ('49', '1', 'Lw22242850', '1', '1948.00', '1500.00', '', null, null, null, '13.3寸', '双核i5', '4g', '银灰色', '', '10.00', '0.00', '0', '0', '1');
+INSERT INTO `oc_goods` VALUES ('50', '2', 'Lw81441704', '1', '2398.00', '2000.00', '', null, null, null, '14.3寸', '双核i6', '6g', '金色', '', '15.00', '0.00', '0', '0', '1');
+INSERT INTO `oc_goods` VALUES ('51', '3', 'Lw13195148', '1', '8488.00', '8000.00', '', null, null, null, '15.3寸', '双核i7', '8g', '黑色', '', '10.00', '0.00', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_goods_cart`
+-- Table structure for oc_goods_cart
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_cart`;
 CREATE TABLE `oc_goods_cart` (
@@ -3884,14 +3962,15 @@ CREATE TABLE `oc_goods_cart` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态,1：选中，0：未选中',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COMMENT='购物车表';
+) ENGINE=MyISAM AUTO_INCREMENT=198 DEFAULT CHARSET=utf8 COMMENT='购物车表';
 
 -- ----------------------------
 -- Records of oc_goods_cart
 -- ----------------------------
+INSERT INTO `oc_goods_cart` VALUES ('197', '22', '0', '51', '1', '2', '1546080270', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_goods_category`
+-- Table structure for oc_goods_category
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_category`;
 CREATE TABLE `oc_goods_category` (
@@ -3904,16 +3983,21 @@ CREATE TABLE `oc_goods_category` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
 
 -- ----------------------------
 -- Records of oc_goods_category
 -- ----------------------------
-INSERT INTO `oc_goods_category` VALUES ('59', '0', '电脑办公', '539', '1486199792', '0', '0', '1');
-INSERT INTO `oc_goods_category` VALUES ('60', '59', '联想系列', '0', '1486199958', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('59', '0', '手机数码', '0', '1486199792', '1545643638', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('63', '0', '电脑办公', '0', '1545643624', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('64', '63', '笔记本', '559', '1545643687', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('60', '59', '手机', '556', '1545643413', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('61', '59', '对讲机', '557', '1545643482', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('62', '59', 'canon', '558', '1545643555', '0', '0', '1');
+INSERT INTO `oc_goods_category` VALUES ('65', '63', '台式机', '560', '1545643739', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_goods_collect`
+-- Table structure for oc_goods_collect
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_collect`;
 CREATE TABLE `oc_goods_collect` (
@@ -3924,14 +4008,15 @@ CREATE TABLE `oc_goods_collect` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='商品收藏表';
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='商品收藏表';
 
 -- ----------------------------
 -- Records of oc_goods_collect
 -- ----------------------------
+INSERT INTO `oc_goods_collect` VALUES ('12', '22', '51', '1', '1545999896', '0');
 
 -- ----------------------------
--- Table structure for `oc_goods_gallery`
+-- Table structure for oc_goods_gallery
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_gallery`;
 CREATE TABLE `oc_goods_gallery` (
@@ -3943,14 +4028,17 @@ CREATE TABLE `oc_goods_gallery` (
   PRIMARY KEY (`id`),
   KEY `info_id` (`info_id`),
   KEY `cover` (`cover`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品相册表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='商品相册表';
 
 -- ----------------------------
 -- Records of oc_goods_gallery
 -- ----------------------------
+INSERT INTO `oc_goods_gallery` VALUES ('1', '1', '548', '0', '0');
+INSERT INTO `oc_goods_gallery` VALUES ('2', '2', '549', '0', '0');
+INSERT INTO `oc_goods_gallery` VALUES ('3', '3', '550', '0', '0');
 
 -- ----------------------------
--- Table structure for `oc_goods_info`
+-- Table structure for oc_goods_info
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_info`;
 CREATE TABLE `oc_goods_info` (
@@ -3979,9 +4067,12 @@ CREATE TABLE `oc_goods_info` (
 -- ----------------------------
 -- Records of oc_goods_info
 -- ----------------------------
+INSERT INTO `oc_goods_info` VALUES ('1', '华为 Nova 全网通(4GB+64GB)玫瑰金 移动版', 'Lw22242850', '60', '0', '0', '', null, '1', '1', '1', '1948.00', '1500.00', '10.00', null, '0', '0', '0', '1');
+INSERT INTO `oc_goods_info` VALUES ('2', '华为 P9  公开版(3GB+32GB)钛银灰 联通版 移动联通4G手机 双卡双待', 'Lw81441704', '60', '0', '0', '', null, '1', '1', '1', '2398.00', '2000.00', '15.00', null, '0', '0', '0', '1');
+INSERT INTO `oc_goods_info` VALUES ('3', 'Apple MacBook Air 13.3英寸笔记本电脑', 'Lw13195148', '64', '0', '0', '', null, '1', '1', '1', '10399.00', '10000.00', '10.00', null, '0', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_goods_unit`
+-- Table structure for oc_goods_unit
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_goods_unit`;
 CREATE TABLE `oc_goods_unit` (
@@ -3991,16 +4082,17 @@ CREATE TABLE `oc_goods_unit` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='商品单位表';
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='商品单位表';
 
 -- ----------------------------
 -- Records of oc_goods_unit
 -- ----------------------------
 INSERT INTO `oc_goods_unit` VALUES ('24', '克', '1486200205', '0', '1');
 INSERT INTO `oc_goods_unit` VALUES ('25', '斤', '1486200217', '0', '1');
+INSERT INTO `oc_goods_unit` VALUES ('26', '尺寸', '1545706083', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_member`
+-- Table structure for oc_member
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_member`;
 CREATE TABLE `oc_member` (
@@ -4022,14 +4114,15 @@ CREATE TABLE `oc_member` (
   `name` varchar(255) DEFAULT '' COMMENT '姓名',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mobile` (`mobile`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
 
 -- ----------------------------
 -- Records of oc_member
 -- ----------------------------
+INSERT INTO `oc_member` VALUES ('22', '0', '小汪', 'e10adc3949ba59abbe56e057f20f883e', '', '0', '13058185654', '1', '0', '0', '0.00', '0', '1545570430', '0', '1', '');
 
 -- ----------------------------
--- Table structure for `oc_member_address`
+-- Table structure for oc_member_address
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_member_address`;
 CREATE TABLE `oc_member_address` (
@@ -4047,14 +4140,18 @@ CREATE TABLE `oc_member_address` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态,1：显示，0：隐藏',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 COMMENT='收货地址表';
+) ENGINE=MyISAM AUTO_INCREMENT=135 DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
 -- ----------------------------
 -- Records of oc_member_address
 -- ----------------------------
+INSERT INTO `oc_member_address` VALUES ('131', '22', '小蔡', '15927074359', '0', '0', '0', '湖北省武汉市武昌区', '武汉职业技术学院', '0', '1545627201', '0', '1');
+INSERT INTO `oc_member_address` VALUES ('132', '22', '小蔡', '15927074359', '0', '0', '0', '湖北省武汉市武昌区', '武汉职业技术学院', '0', '1545627245', '0', '1');
+INSERT INTO `oc_member_address` VALUES ('133', '22', '明真', '13059243816', '0', '0', '0', '北京市北京市朝阳区', '武汉职业技术学院', '0', '1545632993', '0', '1');
+INSERT INTO `oc_member_address` VALUES ('134', '22', '汪春景', '13058185654', '0', '0', '0', '广东省深圳市宝安区', '固戍南昌公园', '1', '1545633867', '0', '1');
 
 -- ----------------------------
--- Table structure for `oc_member_card`
+-- Table structure for oc_member_card
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_member_card`;
 CREATE TABLE `oc_member_card` (
@@ -4076,7 +4173,7 @@ CREATE TABLE `oc_member_card` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `oc_member_withdraw`
+-- Table structure for oc_member_withdraw
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_member_withdraw`;
 CREATE TABLE `oc_member_withdraw` (
@@ -4088,14 +4185,15 @@ CREATE TABLE `oc_member_withdraw` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0：处理中，1：提现完成，2：提现失败',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='提现记录表';
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='提现记录表';
 
 -- ----------------------------
 -- Records of oc_member_withdraw
 -- ----------------------------
+INSERT INTO `oc_member_withdraw` VALUES ('21', '22', '100.00', '75.00', '1546401380', '0', '0');
 
 -- ----------------------------
--- Table structure for `oc_order`
+-- Table structure for oc_order
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_order`;
 CREATE TABLE `oc_order` (
@@ -4116,23 +4214,46 @@ CREATE TABLE `oc_order` (
   `trans_content` varchar(255) NOT NULL DEFAULT '' COMMENT '配送要求',
   `address_info` text NOT NULL COMMENT '具体收货地址',
   `content` text NOT NULL COMMENT '订单留言',
+  `store_id` int(11) NOT NULL DEFAULT '0' COMMENT '返货仓库ID',
   `pay_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '支付时间',
   `payno` varchar(255) NOT NULL DEFAULT '' COMMENT '支付流水号',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0：待付款，1：支付完成，待发货，2：已完成，3：已取消',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`store_id`),
   UNIQUE KEY `order_sn` (`order_sn`),
   KEY `mid` (`mid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COMMENT='订单主表';
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='订单主表';
 
 -- ----------------------------
 -- Records of oc_order
 -- ----------------------------
+INSERT INTO `oc_order` VALUES ('57', '22', '2018122739883', '16976.00', '16976.00', '2.00', '0', '汪春景', '13058185654', '0', '0', '0', '0.00', '1', '', '固戍南昌公园', '麻烦物流快点吧', '0', '0', '', '1545910583', '0', '3');
 
 -- ----------------------------
--- Table structure for `oc_order_goods`
+-- Table structure for oc_order_fenxiao
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_order_fenxiao`;
+CREATE TABLE `oc_order_fenxiao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_mid` int(11) NOT NULL COMMENT '用户id',
+  `to_mid` int(11) NOT NULL COMMENT '上线id',
+  `order_id` int(11) NOT NULL COMMENT '订单id',
+  `effect_money` decimal(12,2) NOT NULL COMMENT '上线分佣总计',
+  `area_agent_id` int(11) DEFAULT NULL COMMENT '区域代理id',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of oc_order_fenxiao
+-- ----------------------------
+INSERT INTO `oc_order_fenxiao` VALUES ('1', '22', '1', '57', '550.00', '1', null, null);
+
+-- ----------------------------
+-- Table structure for oc_order_goods
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_order_goods`;
 CREATE TABLE `oc_order_goods` (
@@ -4149,14 +4270,15 @@ CREATE TABLE `oc_order_goods` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COMMENT='订单商品表';
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COMMENT='订单商品表';
 
 -- ----------------------------
 -- Records of oc_order_goods
 -- ----------------------------
+INSERT INTO `oc_order_goods` VALUES ('90', '57', '51', '1', 'Apple MacBook Air 13.3英寸笔记本电脑', '16976.00', '2.00', '8488.00', '0', '0');
 
 -- ----------------------------
--- Table structure for `oc_standard`
+-- Table structure for oc_standard
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_standard`;
 CREATE TABLE `oc_standard` (
@@ -4173,7 +4295,7 @@ CREATE TABLE `oc_standard` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `oc_standard_value`
+-- Table structure for oc_standard_value
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_standard_value`;
 CREATE TABLE `oc_standard_value` (
@@ -4192,7 +4314,44 @@ CREATE TABLE `oc_standard_value` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `oc_tokens`
+-- Table structure for oc_store_area
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_store_area`;
+CREATE TABLE `oc_store_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pos_province` int(11) NOT NULL DEFAULT '0',
+  `pos_city` int(11) NOT NULL DEFAULT '0',
+  `pos_district` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL DEFAULT '1' COMMENT '仓库id  1：通用，2：仓库配送，3：物流配送',
+  PRIMARY KEY (`id`,`store_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of oc_store_area
+-- ----------------------------
+INSERT INTO `oc_store_area` VALUES ('1', '0', '0', '0', '3');
+
+-- ----------------------------
+-- Table structure for oc_store_template
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_store_template`;
+CREATE TABLE `oc_store_template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `basesum` int(11) NOT NULL COMMENT '最小数量',
+  `baseprice` decimal(12,2) NOT NULL COMMENT '最小价格',
+  `oversum` int(11) NOT NULL COMMENT '最大数量',
+  `overprice` decimal(12,2) NOT NULL COMMENT '最大价格',
+  `store_id` int(11) NOT NULL COMMENT '返货仓库ID',
+  `is_common` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:默认，0：非默认收',
+  PRIMARY KEY (`id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='总仓库通用自营运费模板';
+
+-- ----------------------------
+-- Records of oc_store_template
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oc_tokens
 -- ----------------------------
 DROP TABLE IF EXISTS `oc_tokens`;
 CREATE TABLE `oc_tokens` (
@@ -4201,8 +4360,32 @@ CREATE TABLE `oc_tokens` (
   `deviceid` varchar(64) NOT NULL COMMENT '设备号',
   `token` varchar(64) NOT NULL COMMENT '令牌',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='用户Token表';
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='用户Token表';
 
 -- ----------------------------
 -- Records of oc_tokens
 -- ----------------------------
+INSERT INTO `oc_tokens` VALUES ('26', '22', '', '279dc42367325c6f16dea3bec260688c35f19af3');
+
+-- ----------------------------
+-- Table structure for oc_trans_template
+-- ----------------------------
+DROP TABLE IF EXISTS `oc_trans_template`;
+CREATE TABLE `oc_trans_template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `basesum` int(11) NOT NULL COMMENT '最小数量',
+  `baseprice` decimal(12,2) NOT NULL COMMENT '最小价格',
+  `oversum` int(11) NOT NULL COMMENT '最大数量',
+  `overprice` decimal(12,2) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `is_common` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:默认，0：非默认收',
+  `pos_province` int(11) NOT NULL DEFAULT '0',
+  `pos_city` int(11) NOT NULL DEFAULT '0',
+  `pos_district` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='总仓库通用物流模板';
+
+-- ----------------------------
+-- Records of oc_trans_template
+-- ----------------------------
+INSERT INTO `oc_trans_template` VALUES ('1', '10', '45.88', '500', '90.88', '3', '1', '0', '0', '0');
